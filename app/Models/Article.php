@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\ArticleStatusEnum;
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +16,7 @@ class Article extends Model
   
   
   protected $casts = [
-    'status' => ArticleStatusEnum::class,
+    'status' => StatusEnum::class,
     'price' => 'integer',
   ];
   
