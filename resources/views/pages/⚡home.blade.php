@@ -25,7 +25,6 @@ new class extends Component
       <flux:icon.star variant="solid" />
       <flux:icon.star variant="solid" />
     </div>
-
     <div class="flex flex-col items-center jusitfy-center max-w-1/2">
       <flux:heading size="xl" class="mt-4 italic">
         <p>IMO Livewire takes Blade to the next level. It's basically what Blade should be by default. 🔥</p>

@@ -24,7 +24,7 @@
         'views' => $views,
         'likes' => $likes,
         'dislikes' => $dislikes,
-        'price' => $this->faker->numberBetween(100, 25000),
+        'price' => $this->faker->numberBetween(10, 250),
       ];
     }
   }

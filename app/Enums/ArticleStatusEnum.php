@@ -20,9 +20,9 @@
     public function badgeClass(): string
     {
       return match ($this) {
-        self::Draft => 'bg-gray-100 text-gray-500',
-        self::Published => 'bg-gray-700 text-gray-200',
-        self::Archived => 'bg-gray-400 text-gray-100',
+        self::Draft => 'bg-zinc-100! text-gray-500!',
+        self::Published => 'bg-zinc-700! text-gray-200!',
+        self::Archived => 'bg-zinc-400 text-gray-100',
       };
     }
     
