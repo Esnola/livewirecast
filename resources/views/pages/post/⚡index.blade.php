@@ -1,7 +1,6 @@
 <?php
 
-  use App\Enums\ArticleStatusEnum;
-  use App\Models\Article;
+  use App\Enums\StatusEnum;
   use Livewire\Component;
   use Livewire\Attributes\Title;
   use Livewire\Attributes\Lazy;
@@ -13,11 +12,11 @@
     public string $sort = 'newest';
 
     #[Computed]
-    public function articles()
+    public function posts()
     {
-      sleep(2);
+      sleep(0);
 
-      return Article::query()
+      return Post::query()
         ->tap(fn($q) => match ($this->sort) {
           'oldest' => $q->orderBy('created_at', 'asc'),
           'popular' => $q->orderBy('views', 'desc'),
@@ -33,7 +32,7 @@
     
     public function statuses()
     {
-      return ArticleStatusEnum::cases();
+      return StatusEnum::cases();
     }
 
     public function kbses(): array
@@ -74,27 +73,12 @@
     </flux:dropdown>
   </div>
   <div class="grid  md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 pr-20">
-    @foreach($this->articles as $post)
-      <flux:card class="overflow-hidden min-h-56 flex flex-col justify-between px-4 pt-4 pb-2 shadow-xl shadow-accent">
-        <div class="flex flex-col gap-2">
-          <flux:heading size="md" class="truncate">{{ $post->title }}</flux:heading>
-          <div class="flex items-center w-full justify-between px-4">
-            <flux:text class="text-xs font-bold text-stone-600">{{$post->creator}}</flux:text>
-            <flux:text class="text-[10px] text-zinc-500">{{ $post->created_at->format('M j, Y') }}</flux:text>
-          </div>
-          <div>
-            <flux:text class="text-[11px] text-zinc-500"><span>$</span> {{$post->formattedPrice()}}</flux:text>
-          </div>
-          <flux:text class="line-clamp-3 text-xs">{{ $post->content }}</flux:text>
-        </div>
-        <div class="flex items-center  justify-between">
-          <flux:badge class=" flex items-center gap-2 text-xs px-2 py-2 rounded-md {{$post->status->badgeClass()}}">
-            <flux:icon name="{{ $post->status->icon() }}" class="size-4" variant="solid"/>
-            {{$post->status->label()}}
-          </flux:badge>
-          <flux:button variant="danger" size="sm" wire:click="delete({{ $post->id }})">Delete</flux:button>
-        </div>
-      </flux:card>
+    @foreach($this->posts as $post)
+      <livewire:pages::post.card lazy
+               :post="$post"
+               :statuses="$this->statuses()"
+               :kbses="$this->kbses()"
+               wire:delete="delete({{ $post->id }})"/>
     @endforeach
   </div>
 </div>
