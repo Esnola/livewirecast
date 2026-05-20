@@ -44,9 +44,9 @@
     {
 
     return match ($status) {
-        0 => 'bg-red-50',
-        1 => 'bg-stone-50',
-        2 => 'bg-orange-50',
+        0 => 'bg-red-100 border-red-300!',
+        1 => 'bg-blue-100 border-blue-300!',
+        2 => 'bg-green-100 border-green-300!',
         default =>'bg-orange-100',
       };
     }
