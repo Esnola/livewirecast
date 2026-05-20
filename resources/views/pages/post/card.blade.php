@@ -17,13 +17,12 @@ new class extends Component {
 <flux:skeleton animate="shimmer" class="min-h-56 rounded-lg"/>
 @endplaceholder
 
-{{--<flux:card class="overflow-hidden min-h-56 flex flex-col justify-between px-4 pt-4 pb-2 shadow-xl shadow-accent">--}}
-<flux:card class="overflow-hidden min-h-56 flex flex-col justify-between px-4 pt-4 pb-2 transition duration-300 ease-in-out hover:shadow-xl shadow-accent hover:scale-102">
+<flux:card  {{ $attributes->class('overflow-hidden min-h-56 flex flex-col justify-between px-4 pt-4 pb-2 transition duration-300 ease-in-out hover:shadow-xl shadow-accent hover:scale-105') }} >
   <div class="flex flex-col gap-2">
     <flux:heading size="md" class="truncate">{{ $post->title }}</flux:heading>
     <div class="flex items-center w-full justify-between ">
       <flux:text class="flex items-center font-bold text-stone-600">
-        <span class="text-[8px]">Author:</span> {{$post->creator}}
+        <span class="text-[8px]">Author:</span> {{$post->creator}} {{$post->status}}
       </flux:text>
       <div class="flex flex-col items-center jusitfy-center">
         <flux:text class="text-[8px] text-zinc-500">

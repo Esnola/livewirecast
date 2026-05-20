@@ -39,6 +39,17 @@
     {
       return [ '⌘S','⌘P', '⌘A',  ];
     }
+
+    public function bgClass(int $status):string
+    {
+
+    return match ($status) {
+        0 => 'bg-red-50',
+        1 => 'bg-stone-50',
+        2 => 'bg-orange-50',
+        default =>'bg-orange-100',
+      };
+    }
   }
 ?>
 
@@ -62,9 +73,8 @@
     @foreach($this->posts as $post)
       <livewire:pages::post.card
                :post="$post"
-               :statuses="$this->statuses()"
-               :kbses="$this->kbses()"
                :wire:key="$post->id"
+               :class="$this->bgClass($post->status->value)"
                :lazy.bundle="$loop->iteration > 6"
       />
     @endforeach
