@@ -1,6 +1,7 @@
 <?php
 
   use App\Enums\StatusEnum;
+  use Livewire\Attributes\On;
   use Livewire\Component;
   use Livewire\Attributes\Title;
   use Livewire\Attributes\Lazy;
@@ -9,12 +10,15 @@
 
   new #[Lazy, Title('Posts')]
   class extends Component {
+
+    public $selected = [];
+
     public string $sort = 'newest';
 
     #[Computed]
     public function posts()
     {
-      //sleep(2);
+      // sleep(1);
 
       return Post::query()
         ->tap(fn($q) => match ($this->sort) {
@@ -25,58 +29,77 @@
         ->get();
     }
 
-    public function delete(Post $post)
+    public function deleteSelected()
     {
-      $post->delete();
+      Post::whereIn('id', $this->selected)->delete();
+      $this->selected = [];
     }
-    
+
     public function statuses()
     {
       return StatusEnum::cases();
     }
 
-    public function kbses(): array
+
+    #[On('post-selection-changed')]
+    public function updateSelected(int $postId, bool $checked): void
     {
-      return [ '⌘S','⌘P', '⌘A',  ];
+      if ($checked) {
+        $this->selected = array_values(array_unique([...$this->selected, $postId]));
+        return;
+      }
+      $this->selected = array_values(
+        array_filter($this->selected, fn($id) => (int)$id !== $postId)
+      );
     }
 
-    public function bgClass(int $status):string
-    {
-
-    return match ($status) {
-        0 => 'bg-red-100 border-red-300!',
-        1 => 'bg-blue-100 border-blue-300!',
-        2 => 'bg-green-100 border-green-300!',
-        default =>'bg-orange-100',
-      };
-    }
   }
 ?>
 
-
-<div class="flex flex-col w-full lg:max-w-7xl">
-  <div class="flex justify-between items-center mb-4">
+<div class="flex flex-col">
+  <div class="flex justify-between items-center mb-4 pr-20">
     <div>
-      <flux:heading size="xl">Record</flux:heading>
-      <flux:text class="mt-2">Manage your blog posts and articles</flux:text>
+      <flux:heading size="xl">Livewire 4 - Studio</flux:heading>
+      <flux:text class="mt-2 ">
+        IMO Livewire takes Blade to the next level.<br/> <span class="italic">It's basically what Blade should be by default.</span>
+      </flux:text>
     </div>
-    <flux:dropdown class="">
-      <flux:button class="cursor-pointer" icon:trailing="chevron-down">Status Filter</flux:button>
-      <flux:menu>
-        @foreach( $this->statuses() as $index => $status )
-          <flux:menu.item icon="{{ $status->icon() }}" kbd="{{$this->kbses()[$index]}}" class="cursor-pointer">{{ $status->label() }}</flux:menu.item>
-        @endforeach
-      </flux:menu>
-    </flux:dropdown>
+
+    <!-- Counter Selected & Button Delete -->
+    <div class="flex items-center gap-4">
+      @if(count($this->selected) > 0)
+        <div class="max-lg:hidden flex justify-start items-center gap-4">
+          <flux:subheading class="whitespace-nowrap">
+          </flux:subheading>
+          <flux:button variant="danger" icon="trash" wire:click="deleteSelected()" size="sm">
+            <span>{{ count($this->selected) }}</span>: Delete
+          </flux:button>
+        </div>
+      @endif
+    </div>
+    <div class="flex items-center jusitfy-center gap-4">
+
+      <x-status-filter/>
+
+      <flux:select wire:model="post">
+        <flux:select.option>Newest</flux:select.option>
+        <flux:select.option>Oldest</flux:select.option>
+        <flux:select.option>All</flux:select.option>
+      </flux:select>
+      <flux:button icon="plus" variant="primary" href="{{ route('post.create') }}">New Post</flux:button>
+    </div>
   </div>
+
   <div class="grid  md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 pr-20">
     @foreach($this->posts as $post)
-      <livewire:pages::post.card
-               :post="$post"
-               :wire:key="$post->id"
-               :class="$this->bgClass($post->status->value)"
-               :lazy.bundle="$loop->iteration > 6"
-      />
+      <div>
+        <livewire:pages::post.card
+                :post="$post"
+                :selected="in_array($post->id, $this->selected)"
+                :wire:key="'post-card-'.$post->id"
+                :lazy="$loop->iteration > 9"
+        />
+      </div>
     @endforeach
   </div>
 </div>
