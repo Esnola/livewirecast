@@ -6,10 +6,10 @@
 new class extends Component {
   public Post $post;
 
-  public function mount()
+/*  public function mount()
   {
     usleep(100*1000);
-  }
+  }*/
 };
 
 ?>
@@ -19,14 +19,22 @@ new class extends Component {
 
 <flux:card  {{ $attributes->class('overflow-hidden min-h-56 flex flex-col justify-between px-4 pt-4 pb-2') }} post-id="{{ $post->id }}" >
 
-  @if($slots->has('checkbox'))
-  {{ $slots['checkbox'] }}
-  @endcanany
+  <div class="flex items-center justify-between">
+    @if($slots->has('checkbox'))
+      {{ $slots['checkbox'] }}
+    <flux:badge class="text-[8px] text-zinc-500">
+      <span class="font-semibold">Views: </span>{{ $post->views }}
+    </flux:badge>
+      <flux:badge class="text-[8px] text-zinc-500">
+        <span class="font-semibold">Start: </span>{{ $post->created_at->format('j-m, Y') }}
+      </flux:badge>
+    @endcanany
+  </div>
 
   <div class="flex flex-col gap-3 mt-6">
     <div class="flex flex-col gap-2" >
     <!-- Title -->
-    <flux:heading size="md" class="truncate">   {{ $post->title }} </flux:heading>
+    <flux:heading size="md" class="truncate"> {{ $post->title }} </flux:heading>
       <!-- Author -->
       <flux:text class="flex items-center font-bold text-stone-600"> {{$post->creator}}</flux:text>
     </div>
