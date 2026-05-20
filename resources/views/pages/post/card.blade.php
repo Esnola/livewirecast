@@ -8,12 +8,14 @@ new class extends Component {
   
   public function mount()
   {
-    usleep(100*100);
+    usleep(100*1000);
   }
 
 };
 ?>
-
+@placeholder
+<flux:skeleton animate="shimmer" class="min-h-56 rounded-lg"/>
+@endplaceholder
 
 {{--<flux:card class="overflow-hidden min-h-56 flex flex-col justify-between px-4 pt-4 pb-2 shadow-xl shadow-accent">--}}
 <flux:card class="overflow-hidden min-h-56 flex flex-col justify-between px-4 pt-4 pb-2 transition duration-300 ease-in-out hover:shadow-xl shadow-accent hover:scale-102">

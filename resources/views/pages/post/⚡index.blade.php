@@ -14,7 +14,7 @@
     #[Computed]
     public function posts()
     {
-      sleep(0);
+      //sleep(2);
 
       return Post::query()
         ->tap(fn($q) => match ($this->sort) {
@@ -43,20 +43,6 @@
 ?>
 
 
-@placeholder
-<div class="flex flex-col w-full lg:max-w-7xl">
-  <div class=" justify-between items-center mb-4">
-    <flux:heading size="xl">Record</flux:heading>
-    <flux:text class="mt-2">Manage your blog posts and articles</flux:text>
-  </div>
-  <div class="w-full grid grid-cols-3 gap-4 pr-20">
-    @foreach(range(1, 6) as $_)
-      <flux:skeleton animate="shimmer" class="min-h-56 rounded-lg"/>
-    @endforeach
-  </div>
-</div>
-@endplaceholder
-
 <div class="flex flex-col w-full lg:max-w-7xl">
   <div class="flex justify-between items-center mb-4">
     <div>
@@ -74,11 +60,13 @@
   </div>
   <div class="grid  md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 pr-20">
     @foreach($this->posts as $post)
-      <livewire:pages::post.card lazy
+      <livewire:pages::post.card
                :post="$post"
                :statuses="$this->statuses()"
                :kbses="$this->kbses()"
-               wire:delete="delete({{ $post->id }})"/>
+               :wire:key="$post->id"
+               :lazy.bundle="$loop->iteration > 6"
+      />
     @endforeach
   </div>
 </div>
