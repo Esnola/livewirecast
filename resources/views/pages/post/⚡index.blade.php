@@ -40,19 +40,6 @@
       return StatusEnum::cases();
     }
 
-
-    #[On('post-selection-changed')]
-    public function updateSelected(int $postId, bool $checked): void
-    {
-      if ($checked) {
-        $this->selected = array_values(array_unique([...$this->selected, $postId]));
-        return;
-      }
-      $this->selected = array_values(
-        array_filter($this->selected, fn($id) => (int)$id !== $postId)
-      );
-    }
-
   }
 ?>
 
@@ -92,13 +79,21 @@
 
   <div class="grid  md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 pr-20">
     @foreach($this->posts as $post)
-      <div>
+      <div class="relative">
         <livewire:pages::post.card
                 :post="$post"
-                :selected="in_array($post->id, $this->selected)"
-                :wire:key="'post-card-'.$post->id"
-                :lazy="$loop->iteration > 9"
+                :wire:key="$post->id"
+                :lazy.bundle="$loop->iteration > 9"
         />
+
+        <div class="absolute top-3 left-3 z-10">
+          <flux:checkbox
+                  class="mt-0! cursor-pointer"
+                  wire:model.live="selected"
+                  value="{{ $post->id }}"
+                  wire:key="select-{{ $post->id }}"
+          />
+        </div>
       </div>
     @endforeach
   </div>

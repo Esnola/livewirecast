@@ -10,7 +10,6 @@ new class extends Component {
   {
     usleep(100*1000);
   }
-  public bool $selected = false;
 };
 
 ?>
@@ -20,17 +19,9 @@ new class extends Component {
 
 
 <flux:card  {{ $attributes->class('overflow-hidden min-h-56 flex flex-col justify-between px-4 pt-4 pb-2') }} post-id="{{ $post->id }}" >
-  <flux:checkbox
-          class="mt-0! cursor-pointer"
-          wire:model.live="selected"
-          wire:change="$dispatch('post-selection-changed', {
-        postId: {{ $post->id }},
-        checked: $event.target.checked
-    })"
-  />
     {{ $slot }}
 
-  <div class="flex flex-col gap-3 mt-2">
+  <div class="flex flex-col gap-3 mt-6">
     <div class="flex flex-col gap-2" >
     <!-- Title -->
     <flux:heading size="md" class="truncate">   {{ $post->title }} </flux:heading>
