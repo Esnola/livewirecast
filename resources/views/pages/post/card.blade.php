@@ -10,8 +10,8 @@ new class extends Component {
   {
     usleep(100*1000);
   }
-
 };
+
 ?>
 @placeholder
 <flux:skeleton animate="shimmer" class="min-h-56 rounded-lg"/>
