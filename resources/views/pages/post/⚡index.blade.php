@@ -19,7 +19,6 @@
     public function posts()
     {
       // sleep(1);
-
       return Post::query()
         ->tap(fn($q) => match ($this->sort) {
           'oldest' => $q->orderBy('created_at', 'asc'),
@@ -39,7 +38,6 @@
     {
       return StatusEnum::cases();
     }
-
   }
 ?>
 
@@ -53,31 +51,32 @@
     </div>
 
     <!-- Counter Selected & Button Delete -->
-    <div class="flex items-center gap-4">
-      @if(count($this->selected) > 0)
+    <div wire:show="selected.length > 0" wire:cloak class="flex items-center gap-4">
         <div class="max-lg:hidden flex justify-start items-center gap-4">
           <flux:subheading class="whitespace-nowrap">
+          </flux:subheading>
+          <flux:subheading class="whitespace-nowrap">
+                    <span wire:text="selected.length" class="font-semibold"></span>selected
           </flux:subheading>
           <flux:button variant="danger" icon="trash" wire:click="deleteSelected()" size="sm">
             <span>{{ count($this->selected) }}</span>: Delete
           </flux:button>
         </div>
-      @endif
     </div>
+
     <div class="flex items-center jusitfy-center gap-4">
-
       <x-status-filter/>
-
-      <flux:select wire:model="post">
-        <flux:select.option>Newest</flux:select.option>
-        <flux:select.option>Oldest</flux:select.option>
-        <flux:select.option>All</flux:select.option>
+      <flux:select wire:model.live="sort" data-dim-sorting>
+        <flux:select.option value="newest">Newest</flux:select.option>
+        <flux:select.option value="oldest">Oldest</flux:select.option>
+        <flux:select.option value="popular">Popular</flux:select.option>
       </flux:select>
+
       <flux:button icon="plus" variant="primary" href="{{ route('post.create') }}">New Post</flux:button>
     </div>
   </div>
 
-  <div class="grid  md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 pr-20">
+  <div class="grid  md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-4 pr-20">
     @foreach($this->posts as $post)
       <div class="relative">
         <livewire:pages::post.card
