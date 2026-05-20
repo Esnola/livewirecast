@@ -84,16 +84,16 @@
                 :post="$post"
                 :wire:key="$post->id"
                 :lazy.bundle="$loop->iteration > 9"
-        />
+        >
 
-        <div class="absolute top-3 left-3 z-10">
+        <livewire:slot name="checkbox">
           <flux:checkbox
                   class="mt-0! cursor-pointer"
                   wire:model.live="selected"
                   value="{{ $post->id }}"
                   wire:key="select-{{ $post->id }}"
-          />
-        </div>
+          /></livewire:slot>
+        </livewire:pages::post.card>
       </div>
     @endforeach
   </div>

@@ -17,9 +17,11 @@ new class extends Component {
 <flux:skeleton animate="shimmer" class="min-h-56 rounded-lg"/>
 @endplaceholder
 
-
 <flux:card  {{ $attributes->class('overflow-hidden min-h-56 flex flex-col justify-between px-4 pt-4 pb-2') }} post-id="{{ $post->id }}" >
-    {{ $slot }}
+
+  @if($slots->has('checkbox'))
+  {{ $slots['checkbox'] }}
+  @endcanany
 
   <div class="flex flex-col gap-3 mt-6">
     <div class="flex flex-col gap-2" >
