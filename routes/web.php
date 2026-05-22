@@ -13,4 +13,5 @@
   Route::livewire('/post/create', 'pages::post.create')->name('post.create');
   
   Route::livewire('/post/index', 'pages::post.index')->name('post.index');
+  Route::livewire('/sale/index', 'pages::sale.index')->name('sale.index');
   Route::livewire('/post/listing', 'pages::post.listing')->name('post.listing');
