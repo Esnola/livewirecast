@@ -26,19 +26,14 @@
   </flux:sidebar.header>
 
   <flux:sidebar.nav>
-    <<<<<<< Updated upstream
     <flux:sidebar.item icon="home" href="/" current>Home</flux:sidebar.item>
+    <flux:sidebar.item icon="banknotes" href="{{route('sale.index')}}">Sales</flux:sidebar.item>
     <flux:sidebar.item icon="document-text" href="{{route('post.index')}}">Posts</flux:sidebar.item>
     <flux:sidebar.item icon="command-line" href="{{route('post.create')}}">Create</flux:sidebar.item>
     <flux:sidebar.item icon="queue-list" href="{{route('post.listing')}}">Listing</flux:sidebar.item>
-
-    <flux:sidebar.item icon="home" href="#" current>Home</flux:sidebar.item>
-    <flux:sidebar.item icon="inbox" badge="12" href="#">Inbox</flux:sidebar.item>
     <flux:sidebar.item icon="document-text" href="{{route('post.index')}}">Articles</flux:sidebar.item>
-    <flux:sidebar.item icon="banknotes" href="{{route('sale.index')}}">Sales</flux:sidebar.item>
-
-    <flux:sidebar.item icon="calendar" href="#">Calendar</flux:sidebar.item>
     <flux:sidebar.item icon="inbox" badge="12" href="#">Inbox</flux:sidebar.item>
+
 
     <flux:sidebar.group expandable icon="star" heading="Favorites" class="grid">
       <flux:sidebar.item href="#">Marketing site</flux:sidebar.item>
