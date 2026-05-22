@@ -112,12 +112,26 @@
           <flux:badge as="button" rounded color="zinc" icon="plus" size="lg">More filters...</flux:badge>
         </div>
       </div>
-
-      <flux:tabs variant="segmented" class="w-auto! ml-2" size="sm">
-        <flux:tab icon="list-bullet" icon:variant="outline"/>
-        <flux:tab icon="squares-2x2" icon:variant="outline"/>
-      </flux:tabs>
     </div>
+  {{--
+
+  <!--- THIS TABS ARE PRO FLUX COMPONENTS, NEEDS REGISTER AND PAY -->
+      <flux:tabs variant="segmented" class="w-auto! ml-2" size="sm">
+        <flux:tab name="list" icon="list-bullet" icon:variant="outline"/>
+        <flux:tab name="grid" icon="squares-2x2" icon:variant="outline"/>
+      </flux:tabs>
+--}}
+{{--
+
+    <div class="flex rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-hidden">
+      <button class="px-3 py-1.5 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 border-r border-zinc-200 dark:border-zinc-700">
+        <flux:icon name="list-bullet" variant="outline" class="size-4"/>
+      </button>
+      <button class="px-3 py-1.5 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700">
+        <flux:icon name="squares-2x2" variant="outline" class="size-4"/>
+      </button>
+    </div>
+--}}
 
     <div class="flex gap-6 mb-6">
       @foreach ($this->stats as $stat)
@@ -195,50 +209,3 @@
     <flux:pagination :paginator="$this->paginator"/>
   </flux:main>
 </div>
-
-<!--
-    use \Livewire\WithPagination;
-
-    #[\Livewire\Attributes\Computed]
-    public function paginator()
-    {
-        return new \Illuminate\Pagination\LengthAwarePaginator(items: range(1, 50), total: 100, perPage: 10, currentPage: 1);
-    }
-
-    #[\Livewire\Attributes\Computed]
-    public function stats()
-    {
-        return [
-            [
-                'title' => 'Total revenue',
-                'value' => '$38,393.12',
-                'trend' => '16.2%',
-                'trendUp' => true
-            ],
-            [
-                'title' => 'Total transactions',
-                'value' => '428',
-                'trend' => '12.4%',
-                'trendUp' => false
-            ],
-            [
-                'title' => 'Total customers',
-                'value' => '376',
-                'trend' => '12.6%',
-                'trendUp' => true
-            ],
-            [
-                'title' => 'Average order value',
-                'value' => '$87.12',
-                'trend' => '13.7%',
-                'trendUp' => true
-            ]
-        ];
-    }
-
-    #[\Livewire\Attributes\Computed]
-    public function rows()
-    {
-        return \App\Models\Order::all();
-    }
--->

@@ -16,7 +16,7 @@
         $table->integer('price');
         $table->integer('quantity');
         $table->text('description')->nullable();
-        $table->json('product_category_id')->nullable();
+        $table->json('category_id');
         $table->string('image')->nullable();
         $table->integer('status');
         $table->timestamps();

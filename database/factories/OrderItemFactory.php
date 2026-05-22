@@ -13,13 +13,20 @@
     
     public function definition(): array
     {
-      $product = Product::factory()->create();
-      
       return [
         'order_id' => Order::factory(),
-        'product_id' => $product->id,
+        'product_id' => null,
         'quantity' => fake()->numberBetween(1, 10),
-        'price' => $product->price,
+        'price' => null,
       ];
+    }
+    
+    public function configure(): static
+    {
+      return $this->afterMaking(function (OrderItem $orderItem) {
+        $product = Product::query()->inRandomOrder()->first() ?? Product::factory()->create();
+        $orderItem->product_id = $product->id;
+        $orderItem->price = $product->price;
+      });
     }
   }

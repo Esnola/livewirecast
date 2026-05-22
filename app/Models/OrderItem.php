@@ -14,8 +14,20 @@
     
     public $guarded = [];
     
+    
+    public function formatedPrice(): string
+    {
+      return number_format($this->price / 100, 2, ',', '.') . '€';
+    }
+    
+    
     public function order(): BelongsTo
     {
-      return $this->belongsTo('order_id');
+      return $this->belongsTo(Order::class);
+    }
+    
+    public function product(): BelongsTo
+    {
+      return $this->belongsTo(Product::class);
     }
   }

@@ -13,5 +13,7 @@
   Route::livewire('/post/create', 'pages::post.create')->name('post.create');
   
   Route::livewire('/post/index', 'pages::post.index')->name('post.index');
-  Route::livewire('/sale/index', 'pages::sale.index')->name('sale.index');
+  Route::livewire('/product/products', 'pages::product.products')->name('product.products');
+  Route::livewire('/sale/orders', 'pages::sale.orders')->name('sale.orders');;
   Route::livewire('/post/listing', 'pages::post.listing')->name('post.listing');
+  Route::livewire('/product/product/{product}', 'pages::product.product')->name('product.product');

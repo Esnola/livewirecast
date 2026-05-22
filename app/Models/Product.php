@@ -17,21 +17,24 @@
     
     public $casts = [
       'status' => ProductEnum::class,
+      'category_id' => 'array',
       'price' => 'integer',
     ];
     
     public function getFormattedPrice(): string
     {
-      return number_format($this->precio / 100, 2, ',', '.') . ' €';
+      return number_format($this->price / 100, 2, ',', '.') . ' €';
     }
     
     public function order(): HasMany
     {
-      return $this->hasMany('Order');
+      return $this->hasMany(Order::class);
     }
     
-    public function category(): HasMany
+    
+    public function categories()
     {
-      $this->hasMany('ProductCategory');
+      return ProductCategory::whereIn('id', $this->category_id ?? [])->get();
     }
+    
   }

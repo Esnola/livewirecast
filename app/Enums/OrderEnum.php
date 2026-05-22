@@ -21,11 +21,12 @@
     
     public function badgeClass(): string
     {
+      $comun = ' border px-2! py-1! text-xs! transition-colors duration-300';
       return match ($this) {
-        self::Paid => 'bg-zinc-100! text-gray-500! border-zinc-200',
-        self::Incomplete => 'bg-zinc-700! text-gray-200! border-zinc-200',
-        self::Refunded => 'bg-zinc-400 text-gray-100 border-zinc-300',
-        self::Failed => 'bg-red-400 text-gray-100 border-red-300',
+        self::Paid => 'bg-green-100/30! text-green-400! border-green-300! hover:text-green-600! hover:bg-green-200/80!'. $comun,
+        self::Incomplete => 'bg-olive-100/30! text-olive-400! border-olive-300! hover:text-green-600! hover:bg-olive-200/80!' . $comun,
+        self::Refunded => 'bg-sky-100/30! text-sky-400! border-sky-300! hover:text-sky-600! hover:bg-sky-200/80!' . $comun,
+        self::Failed => 'bg-red-100/30! text-red-400! border-red-300! hover:text-red-600! hover:bg-red-200/80!'. $comun,
       };
     }
     

@@ -19,10 +19,11 @@
     
     public function badgeClass(): string
     {
+      $comun =" border px-2! py-1! text-xs!";
       return match ($this) {
-        self::Available => 'bg-zinc-100! text-gray-500! border-zinc-200',
-        self::NotAvailable => 'bg-zinc-700! text-gray-200! border-zinc-200',
-        self::Soon => 'bg-zinc-400 text-gray-100 border-zinc-300',
+        self::Available => 'bg-green-500/10! text-green-400! border-green-200'.$comun,
+        self::NotAvailable => 'bg-red-500/10! text-red-400! border-red-200'. $comun,
+        self::Soon => 'bg-yellow-500/10! text-yellow-500! border-yellow-200'. $comun,
       };
     }
     

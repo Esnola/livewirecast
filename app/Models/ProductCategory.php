@@ -5,6 +5,7 @@
   use Database\Factories\ProductCategoryFactory;
   use Illuminate\Database\Eloquent\Factories\HasFactory;
   use Illuminate\Database\Eloquent\Model;
+  use Illuminate\Database\Eloquent\Relations\BelongsToMany;
   use Illuminate\Database\Eloquent\Relations\HasMany;
   
   class ProductCategory extends Model
@@ -13,9 +14,9 @@
     use HasFactory;
     
     public $guarded = [];
-    
-    public function products(): HasMany
+  /*
+    public function products(): BelongsToMany
     {
-      return $this->hasMany('Product');
-    }
+      return $this->belongsToMany(Product::class);
+    }*/
   }

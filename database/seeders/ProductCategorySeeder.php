@@ -12,6 +12,6 @@
      */
     public function run(): void
     {
-      ProductCategory::factory()->count(20)->create();
+      ProductCategory::factory()->count(5)->create();
     }
   }

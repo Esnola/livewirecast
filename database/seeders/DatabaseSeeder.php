@@ -25,9 +25,9 @@
       $this->call(ArticleSeeder::class);
       $this->call(PostSeeder::class);
       $this->call(ProductCategorySeeder::class);
-      $this->call(OrderSeeder::class);
       $this->call(ProductSeeder::class);
-      $this->call(OrderItemSeeder::class);
+      $this->call(OrderSeeder::class);
+      //$this->call(OrderItemSeeder::class);
     }
     
   }
