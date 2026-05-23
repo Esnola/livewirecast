@@ -13,6 +13,8 @@
       Schema::create('users', function (Blueprint $table) {
         $table->id();
         $table->string('name');
+        $table->string('last_name');
+        $table->string('phone')->nullable();
         $table->string('email')->unique();
         $table->string('avatar')->nullable();
         $table->boolean('is_admin')->default(false);

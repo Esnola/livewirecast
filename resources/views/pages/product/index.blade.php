@@ -19,29 +19,27 @@
     #[Computed]
     public function stats()
     {
+      $total = Product::all()->sum(
+        fn (Product $item) => $item->price * $item->quantity
+      );
+      $totalFormatted = number_format($total / 100, 2, ',', '.') . ' €';
       return [
         [
-          'title' => 'Total revenue',
-          'value' => '$38,393.12',
+          'title' => 'Total Quantity',
+          'value' => Product::sum('quantity'),
           'trend' => '16.2%',
           'trendUp' => true
         ],
         [
-          'title' => 'Total transactions',
-          'value' => '428',
+          'title' => 'Total products',
+          'value' => Product::count(),
           'trend' => '12.4%',
           'trendUp' => false
         ],
         [
-          'title' => 'Total customers',
-          'value' => '376',
+          'title' => 'Total Investment',
+          'value' => $totalFormatted,
           'trend' => '12.6%',
-          'trendUp' => true
-        ],
-        [
-          'title' => 'Average order value',
-          'value' => '$87.12',
-          'trend' => '13.7%',
           'trendUp' => true
         ]
       ];
@@ -147,10 +145,10 @@
           <flux:table.column class="max-md:hidden">Quantity</flux:table.column>
           <flux:table.column class="max-md:hidden">Status</flux:table.column>
           <flux:table.column class="max-md:hidden">Price</flux:table.column>
+        <flux:table.column>Investment</flux:table.column>
         <flux:table.column class="max-md:hidden">Image</flux:table.column>
           <div class="md:hidden w-6"></div>
         </flux:table.column>
-        <flux:table.column>Category</flux:table.column>
         <flux:table.column>Revenue</flux:table.column>
         <flux:table.column></flux:table.column>
       </flux:table.columns>
@@ -161,20 +159,20 @@
             <flux:table.cell class="pr-2">
               <flux:checkbox/>
             </flux:table.cell>
-            <flux:table.cell class="max-md:hidden">#{{ $item->id }}</flux:table.cell>
-            <flux:table.cell class="max-md:hidden"><a href="{{route('product.product', $item->id)}}">{{ $item->name }}</a></flux:table.cell>
-            <flux:table.cell class="max-md:hidden">{{ $item->quantity }}</flux:table.cell>
+            <flux:table.cell class="max-md:hidden text-xs">#{{ $item->id }}</flux:table.cell>
+            <flux:table.cell class="max-md:hidden text-xs"><a class="font-semibold text-blue-400 " href="{{route('product.show', $item->id)}}">{{ $item->name }}</a></flux:table.cell>
+            <flux:table.cell class="max-md:hidden text-xs">{{ $item->quantity }}</flux:table.cell>
             <flux:table.cell class="max-md:hidden">
               <flux:badge class="{{ $item->status->badgeClass() }}" size="sm" inset="top bottom">{{ $item->status->label() }}</flux:badge>
             </flux:table.cell>
-            <flux:table.cell class="max-w-6 ">{{ $item->getFormattedPrice() }}</flux:table.cell>
+            <flux:table.cell class="max-w-6 text-xs">{{ $item->getFormattedPrice() }}</flux:table.cell>
+            <flux:table.cell class="max-w-6 text-xs" >{{$item->quantity * $item->price / 100}}</flux:table.cell>
             <flux:table.cell class="min-w-6">
               <div class="flex items-center gap-2"><flux:avatar src="{{ $item->image }}" size="lg"/> </div>
             </flux:table.cell>
-            <flux:table.cell class="" variant="strong">
-
+            <flux:table.cell class="flex flex-col" variant="strong">
               @foreach ($item->categories() as $category)
-              <p> {{ $category->name }}</p>
+              <a href="{{route('category.show', $category->id)}}" class="font-semibold text-blue-400 text-[10px]"> {{ $category->name }}</a>
               @endforeach
             </flux:table.cell>
             <flux:table.cell>

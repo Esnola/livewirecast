@@ -38,23 +38,14 @@
       return $this->hasMany(OrderItem::class);
     }
     
+    public function amountOrder()
+    {
+      return $this->items->sum(fn(OrderItem $item) => $item->price * $item->quantity);
+    }
+    
     public function total(): string
     {
-      $quantity = $this->items->sum(fn(OrderItem $item) => $item->price * $item->quantity);
-      
-      return number_format($quantity / 100, 2, ',', '.') . ' €';
+      return number_format($this->amountOrder() / 100, 2, ',', '.') . ' €';
     }
     
-    
-
-    
-    public function productsSummary(): Collection
-    {
-      return $this->items->map(fn(OrderItem $item) => [
-        'product' => $item->product->name,
-        'price' => $item->price,
-        'quantity' => $item->quantity,
-        'subtotal' => $item->price * $item->quantity,
-      ]);
-    }
   }

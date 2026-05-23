@@ -19,9 +19,14 @@
      */
     public function definition(): array
     {
+      $createdAt = $this->faker->dateTimeBetween('-2 years', 'now');
+      $updatedAt = $this->faker->dateTimeBetween($createdAt, 'now');
+      $users = User::query()->pluck('id');
       return [
-        'customer_id' => User::factory(),
+        'customer_id' =>  fn () => $users->random(),
         'status' => fake()->randomElement(OrderEnum::cases())->value,
+        'created_at' => $createdAt,
+        'updated_at' => $updatedAt,
       ];
     }
   }

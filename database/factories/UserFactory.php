@@ -27,7 +27,9 @@
       
       
       return [
-        'name' => fake()->name(),
+        'name' => fake()->firstName(),
+        'last_name'=>fake()->lastName(),
+        'phone' => fake()->phoneNumber(),
         'email' => fake()->unique()->safeEmail(),
         'email_verified_at' => now(),
         'is_admin' => false,

@@ -18,28 +18,33 @@
     #[Computed]
     public function stats()
     {
+      $totalAmount = $this->orders->sum(fn (Order $order) => $order->amountOrder());
+      $totalProducts = $this->orders->sum(fn (Order $order) => $order->items->sum('quantity'));
+      $ordersQuantity = $this->orders->count();
+      $numCustomers = $this->orders->pluck('customer_id')->unique()->count();
+
       return [
         [
           'title' => 'Total revenue',
-          'value' => '$38,393.12',
+          'value' => $this->formatPrice($totalAmount),
           'trend' => '16.2%',
           'trendUp' => true
         ],
         [
-          'title' => 'Total transactions',
-          'value' => '428',
+          'title' => 'Total products',
+          'value' => $totalProducts,
           'trend' => '12.4%',
           'trendUp' => false
         ],
         [
           'title' => 'Total customers',
-          'value' => '376',
+          'value' => $numCustomers,
           'trend' => '12.6%',
           'trendUp' => true
         ],
         [
           'title' => 'Average order value',
-          'value' => '$87.12',
+          'value' => $this->formatPrice($totalAmount/$ordersQuantity),
           'trend' => '13.7%',
           'trendUp' => true
         ]
@@ -172,13 +177,13 @@
             <flux:table.cell class="min-w-6">
               <div class="flex flex-col  gap-2">
                 <flux:avatar src="{{$order->customer->avatar}}" size="xs"/>
-                <span class="max-md:hidden">{{ $order->customer->name }}</span>
+                <a href="{{route('customer.show',$order->customer)}}" class="max-md:hidden">{{ $order->customer->name.' '.$order->customer->last_name }}</a>
               </div>
             </flux:table.cell>
             <flux:table.cell class="max-w-6">
               <div class="flex flex-col items-center jusitfy-center">
                 @foreach($order->items as $item)
-                  <a class="font-semibold text-blue-400 text-[10px]" href="{{route('product.product',$item->product)}}">{{ $item->product->name }}</a>
+                  <a class="font-semibold text-blue-400 text-[10px]" href="{{route('product.show',$item->product)}}">{{ $item->product->name }}</a>
                   <h6 class="mb-1 text-[10px] text-zinc-400 font-bold" >{{ $item->quantity }} x {{ $item->formatedPrice() }} = {{ $this->formatPrice( $item->quantity * $item->price) }}</h6>
                 @endforeach
               </div>
