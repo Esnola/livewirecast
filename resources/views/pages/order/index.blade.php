@@ -1,176 +1,37 @@
 <?php
-
-  use App\Models\Order;
-  use Illuminate\Pagination\LengthAwarePaginator;
-  use Livewire\Attributes\Computed;
+  use App\Livewire\Concerns\HasCommonData;
   use Livewire\Component;
-  use Livewire\WithPagination;
 
-  new class extends Component {
-    use WithPagination;
-
-
-    public function formatPrice($price)
-    {
-      return number_format($price / 100, 2, ',', '.') . ' €';
-    }
-
-    #[Computed]
-    public function stats()
-    {
-      $totalAmount = $this->orders->sum(fn (Order $order) => $order->amountOrder());
-      $totalProducts = $this->orders->sum(fn (Order $order) => $order->items->sum('quantity'));
-      $ordersQuantity = $this->orders->count();
-      $numCustomers = $this->orders->pluck('customer_id')->unique()->count();
-
-      return [
-        [
-          'title' => 'Total revenue',
-          'value' => $this->formatPrice($totalAmount),
-          'trend' => '16.2%',
-          'trendUp' => true
-        ],
-        [
-          'title' => 'Total products',
-          'value' => $totalProducts,
-          'trend' => '12.4%',
-          'trendUp' => false
-        ],
-        [
-          'title' => 'Total customers',
-          'value' => $numCustomers,
-          'trend' => '12.6%',
-          'trendUp' => true
-        ],
-        [
-          'title' => 'Average order value',
-          'value' => $this->formatPrice($totalAmount/$ordersQuantity),
-          'trend' => '13.7%',
-          'trendUp' => true
-        ]
-      ];
-    }
-
-    #[Computed]
-    public function orders()
-    {
-      return Order::with('items.product')->get();
-    }
-
-    #[Computed]
-    public function paginator()
-    {
-      $total = Order::count();
-      return new LengthAwarePaginator(items: range(1, $total), total: $total, perPage: 10, currentPage: 1);
-    }
-  };
+  new class extends Component {  use HasCommonData; }
 ?>
 
 <div>
-  <flux:header sticky container class="bg-white dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-600">
-    <flux:sidebar.toggle class="lg:hidden" icon="bars-2"/>
 
-    <flux:navbar class="max-lg:hidden -mb-px">
-      <flux:navbar.item href="#" data-current>Dashboard</flux:navbar.item>
-      <flux:navbar.item href="#" badge="{{$this->orders->count()}}">Orders</flux:navbar.item>
-      <flux:navbar.item href="#">Catalog</flux:navbar.item>
-      <flux:navbar.item href="#">Configuration</flux:navbar.item>
-    </flux:navbar>
-  </flux:header>
-
-  <flux:sidebar collapsible="mobile"
-                class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
-    <flux:sidebar.toggle class="lg:hidden" icon="x-mark"/>
-
-    <flux:sidebar.nav>
-      <flux:sidebar.item href="#" data-current>Dashboard</flux:sidebar.item>
-      <flux:sidebar.item href="#" badge="32">Orders</flux:sidebar.item>
-      <flux:sidebar.item href="#">Catalog</flux:sidebar.item>
-      <flux:sidebar.item href="#">Configuration</flux:sidebar.item>
-    </flux:sidebar.nav>
-  </flux:sidebar>
+<x-partials.headers-section />
 
   <flux:main container>
-    <div class="flex justify-between items-center mb-6">
-      <div class="flex items-center gap-2">
-        <div class="flex items-center gap-2">
-          <flux:select size="sm" class="">
-            <flux:select.option>Last 7 days</flux:select.option>
-            <flux:select.option>Last 14 days</flux:select.option>
-            <flux:select.option selected>Last 30 days</flux:select.option>
-            <flux:select.option>Last 60 days</flux:select.option>
-            <flux:select.option>Last 90 days</flux:select.option>
-          </flux:select>
+    <x-partials.filters-section />
 
-          <flux:subheading class="max-md:hidden whitespace-nowrap">compared to</flux:subheading>
-
-          <flux:select size="sm" class="max-md:hidden">
-            <flux:select.option selected>Previous period</flux:select.option>
-            <flux:select.option>Same period last year</flux:select.option>
-            <flux:select.option>Last month</flux:select.option>
-            <flux:select.option>Last quarter</flux:select.option>
-            <flux:select.option>Last 6 months</flux:select.option>
-            <flux:select.option>Last 12 months</flux:select.option>
-          </flux:select>
-        </div>
-
-        <flux:separator vertical class="max-lg:hidden mx-2 my-2"/>
-
-        <div class="max-lg:hidden flex justify-start items-center gap-2">
-          <flux:subheading class="whitespace-nowrap">Filter by:</flux:subheading>
-
-          <flux:badge as="button" rounded color="zinc" icon="plus" size="lg">Amount</flux:badge>
-          <flux:badge as="button" rounded color="zinc" icon="plus" size="lg" class="max-md:hidden">Status</flux:badge>
-          <flux:badge as="button" rounded color="zinc" icon="plus" size="lg">More filters...</flux:badge>
-        </div>
-      </div>
-    </div>
-    <div class="flex gap-6 mb-6">
-      @foreach ($this->stats as $stat)
-        <div class="relative flex-1 rounded-lg px-6 py-4 bg-zinc-50 dark:bg-zinc-700 {{ $loop->iteration > 1 ? 'max-md:hidden' : '' }}  {{ $loop->iteration > 3 ? 'max-lg:hidden' : '' }}">
-          <flux:subheading>{{ $stat['title'] }}</flux:subheading>
-
-          <flux:heading size="xl" class="mb-2">{{ $stat['value'] }}</flux:heading>
-
-          <div class="flex items-center gap-1 font-medium text-sm
-          @if ($stat['trendUp'])
-          text-green-600 dark:text-green-400
-          @else
-          text-red-500 dark:text-red-400
-@endif">
-            <flux:icon :icon="$stat['trendUp'] ? 'arrow-trending-up' : 'arrow-trending-down'"
-                       variant="micro"/> {{ $stat['trend'] }}
-          </div>
-
-          <div class="absolute top-0 right-0 pr-2 pt-2">
-            <flux:button icon="ellipsis-horizontal" variant="subtle" size="sm"/>
-          </div>
-        </div>
-      @endforeach
-    </div>
+    <x-partials.stats />
 
     <flux:table>
-      <x-partials.table-columns :isOrder=1 />
-{{--      <flux:table.columns>
-        <flux:table.column></flux:table.column>
-        <flux:table.column class="max-md:hidden">ID</flux:table.column>
-        <flux:table.column class="max-md:hidden">Date</flux:table.column>
-        <flux:table.column class="max-md:hidden">Status</flux:table.column>
-        <flux:table.column><span class="max-md:hidden">Customer</span>
-          <div class="md:hidden w-6"></div>
-        </flux:table.column>
-        <flux:table.column>Products</flux:table.column>
-        <flux:table.column>Amount</flux:table.column>
-        <flux:table.column></flux:table.column>
-      </flux:table.columns>--}}
+
+      <x-partials.table-columns :isOrder="1" />
 
       <flux:table.rows>
+
         @foreach ($this->orders as $order)
-        <x-partials.card-data :item="$order" />
+
+          <x-partials.card-data :item="$order" :isOrder="1" />
+
         @endforeach
+
       </flux:table.rows>
+
     </flux:table>
 
     <flux:pagination :paginator="$this->paginator"/>
+
   </flux:main>
+
 </div>

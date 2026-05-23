@@ -1,7 +1,6 @@
 <?php
 
   use App\Enums\StatusEnum;
-  use App\
   use Livewire\Component;
   use Livewire\Attributes\Title;
   use Livewire\Attributes\Computed;
