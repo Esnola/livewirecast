@@ -89,9 +89,9 @@
             <flux:select.option>Last 90 days</flux:select.option>
           </flux:select>
 
-          <flux:subheading class="max-md:hidden whitespace-nowrap">compared to</flux:subheading>
+          <flux:subheading class="whitespace-nowrap">compared to</flux:subheading>
 
-          <flux:select size="sm" class="max-md:hidden">
+          <flux:select size="sm" >
             <flux:select.option selected>Previous period</flux:select.option>
             <flux:select.option>Same period last year</flux:select.option>
             <flux:select.option>Last month</flux:select.option>
@@ -107,7 +107,7 @@
           <flux:subheading class="whitespace-nowrap">Filter by:</flux:subheading>
 
           <flux:badge as="button" rounded color="zinc" icon="plus" size="lg">Amount</flux:badge>
-          <flux:badge as="button" rounded color="zinc" icon="plus" size="lg" class="max-md:hidden">Status</flux:badge>
+          <flux:badge as="button" rounded color="zinc" icon="plus" size="lg" >Status</flux:badge>
           <flux:badge as="button" rounded color="zinc" icon="plus" size="lg">More filters...</flux:badge>
         </div>
       </div>
@@ -138,38 +138,43 @@
     </div>
 
     <flux:table>
-      <flux:table.columns>
+      <x-partials.table-columns  :isOrder=0 />
+     {{-- <flux:table.columns>
         <flux:table.column></flux:table.column>
-        <flux:table.column class="max-md:hidden">ID</flux:table.column>
-        <flux:table.column><span class="max-md:hidden">Product</span>
-          <flux:table.column class="max-md:hidden">Quantity</flux:table.column>
-          <flux:table.column class="max-md:hidden">Status</flux:table.column>
-          <flux:table.column class="max-md:hidden">Price</flux:table.column>
+        <flux:table.column >ID</flux:table.column>
+        <flux:table.column><span >Product</span>
+          <flux:table.column >Quantity</flux:table.column>
+          <flux:table.column >Status</flux:table.column>
+          <flux:table.column >Price</flux:table.column>
         <flux:table.column>Investment</flux:table.column>
-        <flux:table.column class="max-md:hidden">Image</flux:table.column>
+        <flux:table.column >Image</flux:table.column>
           <div class="md:hidden w-6"></div>
         </flux:table.column>
         <flux:table.column>Revenue</flux:table.column>
         <flux:table.column></flux:table.column>
-      </flux:table.columns>
+      </flux:table.columns>--}}
 
       <flux:table.rows>
         @foreach ($this->products as $item)
-          <flux:table.row>
+      {{--    <x-partials.card-data :item="$item" />--}}
+       <flux:table.row>
             <flux:table.cell class="pr-2">
               <flux:checkbox/>
             </flux:table.cell>
-            <flux:table.cell class="max-md:hidden text-xs">#{{ $item->id }}</flux:table.cell>
-            <flux:table.cell class="max-md:hidden text-xs"><a class="font-semibold text-blue-400 " href="{{route('product.show', $item->id)}}">{{ $item->name }}</a></flux:table.cell>
-            <flux:table.cell class="max-md:hidden text-xs">{{ $item->quantity }}</flux:table.cell>
-            <flux:table.cell class="max-md:hidden">
-              <flux:badge class="{{ $item->status->badgeClass() }}" size="sm" inset="top bottom">{{ $item->status->label() }}</flux:badge>
-            </flux:table.cell>
+            <flux:table.cell class="text-xs">#{{ $item->id }}</flux:table.cell>
+         <flux:table.cell >
+           <flux:badge class="{{ $item->status->badgeClass() }}" size="sm" inset="top bottom">{{ $item->status->label() }}</flux:badge>
+         </flux:table.cell>
+         <flux:table.cell class="flex flex-col gap-1">
+               <flux:avatar src="{{ $item->image }}" size="lg"/>
+           <a class="font-semibold text-blue-400  text-[10px]" href="{{route('product.show', $item->id)}}">{{ $item->name }}</a>
+         </flux:table.cell>
+
+
+            <flux:table.cell class="text-xs">{{ $item->quantity }}</flux:table.cell>
             <flux:table.cell class="max-w-6 text-xs">{{ $item->getFormattedPrice() }}</flux:table.cell>
             <flux:table.cell class="max-w-6 text-xs" >{{$item->quantity * $item->price / 100}}</flux:table.cell>
-            <flux:table.cell class="min-w-6">
-              <div class="flex items-center gap-2"><flux:avatar src="{{ $item->image }}" size="lg"/> </div>
-            </flux:table.cell>
+
             <flux:table.cell class="flex flex-col" variant="strong">
               @foreach ($item->categories() as $category)
               <a href="{{route('category.show', $category->id)}}" class="font-semibold text-blue-400 text-[10px]"> {{ $category->name }}</a>

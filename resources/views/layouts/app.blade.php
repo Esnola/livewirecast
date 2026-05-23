@@ -27,7 +27,7 @@
 
   <flux:sidebar.nav>
     <flux:sidebar.item icon="home" href="/" current>Home</flux:sidebar.item>
-    <flux:sidebar.item icon="banknotes" href="{{route('order.index')}}')}}">Sales</flux:sidebar.item>
+    <flux:sidebar.item icon="banknotes" href="{{route('order.index')}}">Sales</flux:sidebar.item>
     <flux:sidebar.item icon="document-text" href="{{route('post.index')}}">Posts</flux:sidebar.item>
     <flux:sidebar.item icon="command-line" href="{{route('post.create')}}">Create</flux:sidebar.item>
     <flux:sidebar.item icon="queue-list" href="{{route('post.listing')}}">Listing</flux:sidebar.item>

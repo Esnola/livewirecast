@@ -150,7 +150,8 @@
     </div>
 
     <flux:table>
-      <flux:table.columns>
+      <x-partials.table-columns :isOrder=1 />
+{{--      <flux:table.columns>
         <flux:table.column></flux:table.column>
         <flux:table.column class="max-md:hidden">ID</flux:table.column>
         <flux:table.column class="max-md:hidden">Date</flux:table.column>
@@ -161,48 +162,11 @@
         <flux:table.column>Products</flux:table.column>
         <flux:table.column>Amount</flux:table.column>
         <flux:table.column></flux:table.column>
-      </flux:table.columns>
+      </flux:table.columns>--}}
 
       <flux:table.rows>
         @foreach ($this->orders as $order)
-          <flux:table.row>
-            <flux:table.cell class="pr-2">
-              <flux:checkbox/>
-            </flux:table.cell>
-            <flux:table.cell class="max-md:hidden">#{{ $order->id }}</flux:table.cell>
-            <flux:table.cell class="max-md:hidden">{{ $order->created_at->format('d/m/Y') }}</flux:table.cell>
-            <flux:table.cell class="max-md:hidden">
-              <flux:badge class="{{$order->status->badgeClass()}} border" size="sm" inset="top bottom">{{ $order->status->label() }}</flux:badge>
-            </flux:table.cell>
-            <flux:table.cell class="min-w-6">
-              <div class="flex flex-col  gap-2">
-                <flux:avatar src="{{$order->customer->avatar}}" size="xs"/>
-                <a href="{{route('customer.show',$order->customer)}}" class="max-md:hidden">{{ $order->customer->name.' '.$order->customer->last_name }}</a>
-              </div>
-            </flux:table.cell>
-            <flux:table.cell class="max-w-6">
-              <div class="flex flex-col items-center jusitfy-center">
-                @foreach($order->items as $item)
-                  <a class="font-semibold text-blue-400 text-[10px]" href="{{route('product.show',$item->product)}}">{{ $item->product->name }}</a>
-                  <h6 class="mb-1 text-[10px] text-zinc-400 font-bold" >{{ $item->quantity }} x {{ $item->formatedPrice() }} = {{ $this->formatPrice( $item->quantity * $item->price) }}</h6>
-                @endforeach
-              </div>
-            </flux:table.cell>
-            <flux:table.cell class="" variant="strong">
-              <flux:badge class="{{$order->status->badgeClass()}} text-[10px]!" >{{ $order->total() }} </flux:badge>
-            </flux:table.cell>
-            <flux:table.cell>
-              <flux:dropdown position="bottom" align="end" offset="-15">
-                <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"></flux:button>
-
-                <flux:menu>
-                  <flux:menu.item icon="document-text">View invoice</flux:menu.item>
-                  <flux:menu.item icon="receipt-refund">Refund</flux:menu.item>
-                  <flux:menu.item icon="archive-box" variant="danger">Archive</flux:menu.item>
-                </flux:menu>
-              </flux:dropdown>
-            </flux:table.cell>
-          </flux:table.row>
+        <x-partials.card-data :item="$order" />
         @endforeach
       </flux:table.rows>
     </flux:table>
