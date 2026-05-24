@@ -20,7 +20,7 @@ return new class extends Migration
           $table->integer('views');
           $table->integer('likes');
           $table->integer('dislikes');
-          $table->bigInteger('price');
+          $table->integer('average');
           $table->timestamps();
         });
     }

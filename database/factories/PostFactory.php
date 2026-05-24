@@ -31,7 +31,7 @@ class PostFactory extends Factory
         'views' => $views,
         'likes' => $likes,
         'dislikes' => $dislikes,
-        'price' => $this->faker->numberBetween(10, 250),
+        'average' => $this->faker->numberBetween(100, 2500),
         'created_at' => $createdAt,
         'updated_at' => $this->faker->dateTimeBetween($createdAt, 'now'),
       ];

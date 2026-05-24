@@ -10,6 +10,7 @@
   });*/
   
   Route::livewire('/', 'pages::home')->name('home');
+  Route::livewire('/analytics', 'pages::analytics.index')->name('analytics.index');
   Route::livewire('/post/create', 'pages::post.create')->name('post.create');
   Route::livewire('/post/index', 'pages::post.index')->name('post.index');
   
