@@ -75,9 +75,12 @@
       ]);
     }
     
+    /*
+     This function is for data changes while developing, it will return a random number between 100
+     and 1000 in local environment while we are studying.
+     */
     public function randomize()
     {
-      
       if(config('app.env') === 'local') {
         return rand(100, 1000);
       }

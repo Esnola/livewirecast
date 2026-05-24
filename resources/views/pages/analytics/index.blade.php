@@ -10,6 +10,7 @@
   class extends Component {
     public string $period = 'month';
 
+
     public array $periods = [
       'day' => 'Today',
       'week' => 'Week',
@@ -21,6 +22,7 @@
     #[Computed]
     public function views(): int
     {
+   //   usleep(1.3 * 1000000);
 
       return Analytics::period($this->period)->views();
     }
@@ -70,37 +72,26 @@
       </flux:select>
     </div>
 
-    <div class="mb-8 grid gap-4 md:grid-cols-4 relative">
+    <div class="mb-8 grid gap-4 md:grid-cols-3 relative">
 
 
-      @island(name:'alone')
-      <x-pages::analytics.metric heading="Alone" :number="$this->views" :change="-9">
-        <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
-      </x-pages::analytics.metric>
+      @island(name:'metrics', lazy:true, always:true)
+      @placeholder
+        <flux:skeleton class="h-30" animate="shimmer" />
+        <flux:skeleton class="h-30" animate="shimmer" />
+        <flux:skeleton class="h-30" animate="shimmer" />
+      @endplaceholder
+
+      @island(always:true)
+            <x-pages::analytics.metric wire:poll.5s heading="Views" :number="$this->views" :change="12" />
       @endisland
-
-      @island(name:'views')
-        <x-pages::analytics.metric heading="Metrics User View" :number="$this->views" :change="12">
-          <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
-        </x-pages::analytics.metric>
-      @endisland
-
-
-      @island(name:'visitors')
-      <x-pages::analytics.metric heading="Metrics User Visitors" :number="$this->visitors" :change="22">
-        <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
-      </x-pages::analytics.metric>
-      @endisland
-
-      @island(name:'average')
-      <x-pages::analytics.metric heading="Metrics Average" :number="$this->avgTime" :change="-15">
-        <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
-      </x-pages::analytics.metric>
+      <x-pages::analytics.metric heading="Visitors" :number="$this->visitors" :change="22"/>
+      <x-pages::analytics.metric heading="Average"   :number="$this->avgTime" :change="-15" />
       @endisland
 
 
       <div class="absolute top-0 bottom-0 flex flex-col items-start left-full pl-4">
-        <flux:button wire:click="$refresh" wire:island="alone" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer">Only Alone</flux:button>
+        <flux:button wire:click="$refresh" wire:island="metrics" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer" />
       </div>
 
     </div>
