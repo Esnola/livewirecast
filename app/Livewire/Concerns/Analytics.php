@@ -12,6 +12,7 @@ class Analytics
     public function __construct(
         private readonly string $period = 'month'
     ) {}
+
     public static function period(string $period): self
     {
         return new self($period);
