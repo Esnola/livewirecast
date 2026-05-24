@@ -7,10 +7,10 @@
   use Illuminate\Database\Eloquent\Builder;
   use Illuminate\Support\Collection;
   
-  class Analytics
+  readonly class Analytics
   {
     public function __construct(
-      private readonly string $period = 'month'
+      private string $period = 'month'
     )
     {
     }
@@ -49,10 +49,6 @@
     
     public function topCountries(): Collection
     {
-      /*
-        Como todavía no hay tabla/columna de países,
-        devolvemos datos simulados proporcionales a las visitas reales.
-       */
       $views = max(1, $this->views());
       
       return collect([
@@ -79,15 +75,26 @@
       ]);
     }
     
+    public function randomize()
+    {
+      
+      if(config('app.env') === 'local') {
+        return rand(100, 1000);
+      }
+      return 0;
+    }
+    
+    
+    
     public function views(): int
     {
-      return (int)$this->query()->sum('views');
+      return (int)$this->query()->sum('views') + $this->randomize();
     }
     
     public function avgTime(): string
     {
-      $seconds = (int)$this->query()->avg('average');
-      //$seconds = $this->visitors() * 10000 / $this->visitors();
+      
+      $seconds = (int)$this->query()->avg('average') + $this->randomize()*10;
       if ($seconds === 0) {
         return '0m 00s';
       }
@@ -107,6 +114,6 @@
     
     public function visitors(): int
     {
-      return (int)round($this->query()->sum('visitors'));
+      return (int)round($this->query()->sum('visitors')) + $this->randomize();
     }
   }

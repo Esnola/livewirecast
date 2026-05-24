@@ -6,7 +6,6 @@
   use Livewire\Attributes\Title;
   use Livewire\Component;
 
-
   new #[Lazy, Title('Analytics Posts')]
   class extends Component {
     public string $period = 'month';
@@ -18,9 +17,11 @@
       'year' => 'Year',
     ];
 
+
     #[Computed]
     public function views(): int
     {
+
       return Analytics::period($this->period)->views();
     }
 
@@ -33,7 +34,7 @@
     #[Computed]
     public function avgTime(): string
     {
-      return Analytics::period($this->period)->avgTime();
+      return Analytics::period($this->period)->avgTime() ;
     }
 
     #[Computed]
@@ -69,26 +70,41 @@
       </flux:select>
     </div>
 
-    <div class="mb-8 grid gap-4 md:grid-cols-3">
-      @island
-      <x-pages::analytics.metric heading="Vists" :number="$this->views" :change="12">
+    <div class="mb-8 grid gap-4 md:grid-cols-4 relative">
+
+
+      @island(name:'alone')
+      <x-pages::analytics.metric heading="Alone" :number="$this->views" :change="-9">
         <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
       </x-pages::analytics.metric>
       @endisland
 
-      @island
-      <x-pages::analytics.metric heading="Visitors" :number="$this->visitors" :change="22">
+      @island(name:'views')
+        <x-pages::analytics.metric heading="Metrics User View" :number="$this->views" :change="12">
+          <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
+        </x-pages::analytics.metric>
+      @endisland
+
+
+      @island(name:'visitors')
+      <x-pages::analytics.metric heading="Metrics User Visitors" :number="$this->visitors" :change="22">
         <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
       </x-pages::analytics.metric>
       @endisland
 
-      @island
-      <x-pages::analytics.metric heading="Average time" :number="$this->avgTime" :change="-15">
+      @island(name:'average')
+      <x-pages::analytics.metric heading="Metrics Average" :number="$this->avgTime" :change="-15">
         <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
       </x-pages::analytics.metric>
       @endisland
+
+
+      <div class="absolute top-0 bottom-0 flex flex-col items-start left-full pl-4">
+        <flux:button wire:click="$refresh" wire:island="alone" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer">Only Alone</flux:button>
+      </div>
 
     </div>
+
 
     <div class="grid gap-6 lg:grid-cols-2">
       <flux:card>

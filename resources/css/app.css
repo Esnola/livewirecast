@@ -10,3 +10,31 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+/* ITEM estilo Filament */
+.sidebar-item {
+    @apply rounded-xl px-3 py-2 text-sm transition;
+}
+
+.sidebar-item:hover {
+    @apply bg-zinc-200 dark:bg-zinc-800;
+}
+
+/* ACTIVO */
+.sidebar-item[data-current] {
+    @apply bg-zinc-200 dark:bg-white dark:text-black;
+}
+
+/* GRUPOS */
+.sidebar-group {
+    @apply transition-all;
+}
+
+/* ANIMACIÓN SUAVE (fake pero efectiva) */
+.sidebar-group > div:last-child {
+    @apply transition-all duration-200 ease-out;
+}
+
+/* Chevron más suave */
+.sidebar-group button svg {
+    @apply transition-transform duration-200;
+}
