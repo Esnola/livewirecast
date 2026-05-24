@@ -6,6 +6,7 @@
   use App\Models\Product;
   use Illuminate\Database\Seeder;
   use Illuminate\Support\Facades\Http;
+  use Faker\Factory as Faker;
   
   class ProductSeeder extends Seeder
   {
@@ -16,7 +17,7 @@
     {
       // Product::factory()->count(20)->create();
       //$faker = \Faker\Factory::create(); // independiente, no “pegado” a fake()
-      
+  
       $payload = Http::timeout(15)->get('https://dummyjson.com/products?limit=50')->json();
       $products = $payload['products'] ?? [];
       
@@ -26,6 +27,10 @@
         $pool = [1, 2, 3, 4, 5];
         shuffle($pool);
         $categoryIds = array_slice($pool, 0, $count);
+        
+        $faker = Faker::create();
+        $createdAt = $faker->dateTimeBetween('-2 years', 'now');
+        $updatedAt = $faker->dateTimeBetween($createdAt, 'now');
         Product::factory()->create([
           'name' => $p['title'],
           'description' => $p['description'] ?? null,
@@ -34,6 +39,8 @@
           'price' => fake()->numberBetween(1000, 20000),
           'image' => $image,
           'status' => fake()->randomElement(ProductEnum::cases())->value,
+          'created_at' => $createdAt,
+          'updated_at' => $updatedAt,
         ]);
       }
       

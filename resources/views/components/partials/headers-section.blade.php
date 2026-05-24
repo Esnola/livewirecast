@@ -1,15 +1,12 @@
 
 
-
 <flux:header sticky container class="bg-white dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-600">
   <flux:sidebar.toggle class="lg:hidden" icon="bars-2"/>
 
   <flux:navbar class="max-lg:hidden -mb-px">
-    <flux:navbar.item href="#" data-current>Dashboard</flux:navbar.item>
-    <flux:navbar.item href="#" badge="{{$this->counters()['orders']}}">Orders</flux:navbar.item>
-    <flux:navbar.item href="#" badge="{{$this->counters()['products']}}">Products</flux:navbar.item>
-    <flux:navbar.item href="#">Catalog</flux:navbar.item>
-    <flux:navbar.item href="#">Configuration</flux:navbar.item>
+    <flux:navbar.item href="#">Dashboard</flux:navbar.item>
+    <flux:navbar.item href="{{route('order.index')}}" badge="{{$this->counters()['orders']}}" >Orders</flux:navbar.item>
+    <flux:navbar.item href="{{route('product.index')}}" badge="{{$this->counters()['products']}}">Products</flux:navbar.item>
   </flux:navbar>
 </flux:header>
 

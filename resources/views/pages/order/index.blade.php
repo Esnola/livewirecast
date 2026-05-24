@@ -16,13 +16,13 @@
 
     <flux:table>
 
-      <x-partials.table-columns :isOrder="1" />
+      <x-partials.table-columns />
 
       <flux:table.rows>
 
         @foreach ($this->orders as $order)
 
-          <x-partials.card-data :item="$order" :isOrder="1" />
+          <x-partials.card-data  :item="$order" />
 
         @endforeach
 

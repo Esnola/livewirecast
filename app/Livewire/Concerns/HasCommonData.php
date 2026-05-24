@@ -26,9 +26,8 @@
     #[Computed]
     public function orders()
     {
-       return  Order::with('items.product')->get();
+       return  Order::with('items.product')->with('customer')->get();
     }
-    
     
     #[Computed]
     public function counters(): array
@@ -43,7 +42,8 @@
     #[Computed]
     public function isProductPage(): bool
     {
-      return str_contains(request()->route()->getName() ?? '', 'product');
+     //return str_contains(request()->route()->getName() ?? '', 'product');
+      return request()->routeIs('product.*');
     }
     
     #[Computed]
@@ -63,10 +63,13 @@
     
     private function productStats(): array
     {
+      $productosUltimaSemana = Product::where('created_at', '>', now()->subWeek())->sum('quantity');
+      $ultimos30Dias = Product::where('created_at', '>', now()->subDays(90))->sum('quantity');
+      
       return [
         [
           'title'   => 'Total Quantity',
-          'value'   => $this->formatNumber(Product::sum('quantity'), 0),
+          'value'   => $this->formatNumber( $ultimos30Dias , 0),
           'trend'   => '16.2%',
           'trendUp' => true
         ],
@@ -117,4 +120,33 @@
         ],
       ];
     }
+    
+    #[Computed]
+    public function tableHeaders(): array
+    {
+      $init =['ID', 'Date','Status'];
+      $end = ['Actions'];
+      $columns = $this->isProductPage()
+        ? ['Product', 'Quantity', 'Price', 'Investment', 'Categories']
+        : ['Customer', 'Amount', 'Products'];
+      
+      return  array_merge($init, $columns, $end);
+    }
+    
+    #[Computed]
+    public function actions(): array
+    {
+      return $this->isProductPage()
+        ? [
+          ['icon' =>  'document-text', 'label' => 'View invoice'],
+          ['icon' => 'receipt-refund', 'label' => 'Refund'],
+          ['icon' => 'archive-box', 'label' => 'Archive', 'variant' => 'danger'],
+        ]
+        : [
+          ['icon' => 'eye', 'label' => 'View details'],
+          ['icon' => 'pencil-square', 'label' => 'Edit item'],
+          ['icon' => 'trash', 'label' => 'Delete item', 'variant' => 'danger'],
+        ];
+    }
+    
   }
