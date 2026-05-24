@@ -20,12 +20,12 @@
       return new self($period);
     }
     
-    public function topPosts(): Collection
+    public function topPosts($page = 1): Collection
     {
       return $this->query()
         ->select(['id', 'title', 'creator', 'views', 'likes'])
         ->orderByDesc('views')
-        ->limit(5)
+        ->limit($page * 5)
         ->get();
     }
     

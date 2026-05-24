@@ -2,14 +2,22 @@
 
   use App\Livewire\Concerns\Analytics;
   use Livewire\Attributes\Computed;
-  use Livewire\Attributes\Lazy;
   use Livewire\Attributes\Title;
+  use Livewire\Attributes\Url;
   use Livewire\Component;
 
-  new #[Lazy, Title('Analytics Posts')]
+  new #[Title('Analytics Posts')]
   class extends Component {
     public string $period = 'month';
 
+    #[Url( history: true)]
+    public int $postsPage = 1;
+
+    public function loadMorePosts()
+    {
+      $this->postsPage++;
+
+    }
 
     public array $periods = [
       'day' => 'Today',
@@ -22,7 +30,7 @@
     #[Computed]
     public function views(): int
     {
-   //   usleep(1.3 * 1000000);
+      //   usleep(1.3 * 1000000);
 
       return Analytics::period($this->period)->views();
     }
@@ -36,13 +44,13 @@
     #[Computed]
     public function avgTime(): string
     {
-      return Analytics::period($this->period)->avgTime() ;
+      return Analytics::period($this->period)->avgTime();
     }
 
     #[Computed]
     public function topPosts()
     {
-      return Analytics::period($this->period)->topPosts();
+      return Analytics::period($this->period)->topPosts(page: $this->postsPage);
     }
 
     #[Computed]
@@ -50,6 +58,7 @@
     {
       return Analytics::period($this->period)->topCountries();
     }
+
   };
 ?>
 
@@ -77,28 +86,29 @@
 
       @island(name:'metrics', lazy:true, always:true)
       @placeholder
-        <flux:skeleton class="h-30" animate="shimmer" />
-        <flux:skeleton class="h-30" animate="shimmer" />
-        <flux:skeleton class="h-30" animate="shimmer" />
+      <flux:skeleton class="h-30" animate="shimmer"/>
+      <flux:skeleton class="h-30" animate="shimmer"/>
+      <flux:skeleton class="h-30" animate="shimmer"/>
       @endplaceholder
 
       @island(always:true)
-            <x-pages::analytics.metric wire:poll.5s heading="Views" :number="$this->views" :change="12" />
+      <x-pages::analytics.metric wire:poll.5s heading="Views" :number="$this->views" :change="12"/>
       @endisland
       <x-pages::analytics.metric heading="Visitors" :number="$this->visitors" :change="22"/>
-      <x-pages::analytics.metric heading="Average"   :number="$this->avgTime" :change="-15" />
+      <x-pages::analytics.metric heading="Average" :number="$this->avgTime" :change="-15"/>
       @endisland
 
 
       <div class="absolute top-0 bottom-0 flex flex-col items-start left-full pl-4">
-        <flux:button wire:click="$refresh" wire:island="metrics" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer" />
+        <flux:button wire:click="$refresh" wire:island="metrics" icon="arrow-path" variant="subtle" size="sm"
+                     class="cursor-pointer"/>
       </div>
 
     </div>
 
 
     <div class="grid gap-6 lg:grid-cols-2">
-      <flux:card>
+      <flux:card class="lg:col-span-2">
         <div class="mb-4">
           <flux:heading>Top posts</flux:heading>
           <flux:subheading>Posts with the most views in the selected period.</flux:subheading>
@@ -106,29 +116,36 @@
 
         <flux:table>
           <flux:table.columns>
-            <flux:table.column>Post</flux:table.column>
+            <flux:table.column>#Id</flux:table.column>
+            <flux:table.column>Views</flux:table.column>
+            <flux:table.column>Title</flux:table.column>
             <flux:table.column>Author</flux:table.column>
-            <flux:table.column>Visits</flux:table.column>
             <flux:table.column>Likes</flux:table.column>
           </flux:table.columns>
 
           <flux:table.rows>
-            @forelse ($this->topPosts as $post)
+            @island(name:'posts')
+            @foreach ($this->topPosts as $post)
               <flux:table.row>
+                <flux:table.cell>#{{ $post->id }}</flux:table.cell>
+                <flux:table.cell>{{ number_format($post->views, 0, ',', '.') }}</flux:table.cell>
                 <flux:table.cell>{{ $post->title }}</flux:table.cell>
                 <flux:table.cell>{{ $post->creator }}</flux:table.cell>
-                <flux:table.cell>{{ number_format($post->views, 0, ',', '.') }}</flux:table.cell>
                 <flux:table.cell>{{ number_format($post->likes, 0, ',', '.') }}</flux:table.cell>
               </flux:table.row>
-            @empty
-              <flux:table.row>
-                <flux:table.cell colspan="4">
-                  There are no posts in this period.
-                </flux:table.cell>
-              </flux:table.row>
-            @endforelse
+            @endforeach
+            @endisland
           </flux:table.rows>
         </flux:table>
+        <flux:header>
+        <flux:button
+                wire:click="loadMorePosts"
+                wire:island="posts"
+                class="cursor-pointer mx-auto"
+                variant="primary" size="sm" icon="chevron-down">
+          Load More
+        </flux:button>
+        </flux:header>
       </flux:card>
 
       <flux:card>
