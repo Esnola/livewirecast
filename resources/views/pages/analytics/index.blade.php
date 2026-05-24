@@ -7,7 +7,7 @@
   use Livewire\Component;
 
 
-  new #[Lazy, Title('Posts')]
+  new #[Lazy, Title('Analytics Posts')]
   class extends Component {
     public string $period = 'month';
 
@@ -70,26 +70,24 @@
     </div>
 
     <div class="mb-8 grid gap-4 md:grid-cols-3">
-      <flux:card>
-        <flux:text>Vists</flux:text>
-        <flux:heading size="xl">
-          {{ number_format($this->views, 0, ',', '.') }}
-        </flux:heading>
-      </flux:card>
+      @island
+      <x-pages::analytics.metric heading="Vists" :number="$this->views" :change="12">
+        <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
+      </x-pages::analytics.metric>
+      @endisland
 
-      <flux:card>
-        <flux:text>Visitors</flux:text>
-        <flux:heading size="xl">
-          {{ number_format($this->visitors, 0, ',', '.') }}
-        </flux:heading>
-      </flux:card>
+      @island
+      <x-pages::analytics.metric heading="Visitors" :number="$this->visitors" :change="22">
+        <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
+      </x-pages::analytics.metric>
+      @endisland
 
-      <flux:card>
-        <flux:text>Average time</flux:text>
-        <flux:heading size="xl">
-          {{ $this->avgTime }}
-        </flux:heading>
-      </flux:card>
+      @island
+      <x-pages::analytics.metric heading="Average time" :number="$this->avgTime" :change="-15">
+        <flux:button wire:click="$refresh" icon="arrow-path" variant="subtle" size="sm" class="cursor-pointer"/>
+      </x-pages::analytics.metric>
+      @endisland
+
     </div>
 
     <div class="grid gap-6 lg:grid-cols-2">
@@ -118,7 +116,7 @@
             @empty
               <flux:table.row>
                 <flux:table.cell colspan="4">
-                 There are no posts in this period.
+                  There are no posts in this period.
                 </flux:table.cell>
               </flux:table.row>
             @endforelse
