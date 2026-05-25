@@ -1,11 +1,9 @@
 <div {{ $attributes->class('relative flex-1 rounded-lg bg-zinc-50 px-6 py-4 dark:bg-zinc-700') }}>
   <div class="flex items-start justify-between gap-2 relative">
     <div class="mb-6">
-      <flux:subheading >{{ $heading }}</flux:subheading>
-      <div wire:sort:handle class="flex items-center absolute max-w-fit right-0 top-0 cursor-pointer text-gray-500 hover:text-gray-700">
-      <flux:icon.ellipsis-vertical class="size-6 translate-x-3" />
-      <flux:icon.ellipsis-vertical class="size-6" />
-      </div>
+      <flux:subheading>{{ $heading }}</flux:subheading>
+      <flux:icon.list-bullet wire:sort:handle
+                             class="size-6 flex items-center absolute max-w-fit right-0 top-0 cursor-pointer text-gray-500 hover:text-gray-700"/>
       <flux:heading size="xl" class="ml-6">
         {{ is_numeric($number) ? number_format((float) $number, 0, ',', '.') : $number }}
       </flux:heading>

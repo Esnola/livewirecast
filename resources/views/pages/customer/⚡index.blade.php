@@ -8,7 +8,7 @@
     public function users()
     {
       return User::with('buys')->get();
-  }
+    }
   };
 ?>
 

@@ -1,19 +1,27 @@
 <?php
+
   use App\Livewire\Concerns\HasCommonData;
   use Livewire\Component;
+  use Livewire\Attributes\Title;
 
-  new class extends Component {  use HasCommonData; }
+  new #[Title('Product inventory')]
+  class extends Component {
+    use HasCommonData;
+
+    public string $title = 'Product inventory';
+  }
 ?>
 
 
-<div>
-<x-partials.headers-section />
+<div class="relative">
+  <x-partials.headers-section :title="$title"/>
+
 
   <flux:main container>
 
-  <x-partials.filters-section />
+    <x-partials.filters-section/>
 
-  <x-partials.stats />
+    <x-partials.stats/>
 
     <flux:table>
 

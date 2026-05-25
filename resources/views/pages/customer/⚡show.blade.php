@@ -6,7 +6,6 @@
   new class extends Component {
     public User $customer;
 
-
   };
 ?>
 
