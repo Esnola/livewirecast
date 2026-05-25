@@ -1,7 +1,10 @@
 <?php
 
   use App\Livewire\Concerns\Analytics;
+  use Livewire\Attributes\Async;
   use Livewire\Attributes\Computed;
+  use Livewire\Attributes\Renderless;
+  use Livewire\Attributes\Session;
   use Livewire\Attributes\Title;
   use Livewire\Attributes\Url;
   use Livewire\Component;
@@ -10,7 +13,7 @@
   class extends Component {
     public string $period = 'month';
 
-    #[Url( history: true)]
+    #[Url(history: true)]
     public int $postsPage = 1;
 
     public function loadMorePosts()
@@ -78,11 +81,35 @@
       ];
     }
 
+
+    #[Session]
+    public $sortedMetrics = [
+      'views',
+      'visitors',
+      'avgTime'
+    ];
+
+    #[Renderless, Async]
     public function handleSort($item, $position)
     {
-      return $item;
-     // dd($item, $position);
+      // 1. Remove the item from its current home...
+      $this->sortedMetrics = array_diff($this->sortedMetrics, [$item]);
+
+      // 2. Re-index to close the gap...
+      $this->sortedMetrics = array_values($this->sortedMetrics);
+
+      // 3. Splice the item into the new spot...
+      array_splice($this->sortedMetrics, $position, 0, [$item]);
     }
+
+    public function updating($property)
+    {
+      if ($property === 'period') {
+        $this->reset('postsPage');
+        $this->renderIsland('posts');
+      }
+    }
+
   }
 ?>
 
@@ -113,14 +140,14 @@
     </div>
     @endplaceholder
     <div class="mt-8 grid grid-cols-3 gap-6 relative" wire:sort="handleSort">
-      @foreach ($this->metrics as $name => $metric)
-      <x-pages::analytics.metric
-              :wire:key="$name"
-              :wire:sort:item="$name"
-              :heading="$metric['heading']"
-              :number="$metric['number']"
-              :change="$metric['change']"
-      />
+      @foreach ($this->sortedMetrics as $name )
+        <x-pages::analytics.metric
+                :wire:key="$name"
+                :wire:sort:item="$name"
+                :heading="$this->metrics[$name]['heading']"
+                :number="$this->metrics[$name]['number']"
+                :change="$this->metrics[$name]['change']"
+        />
       @endforeach
       <div wire:sort:ignore class="absolute max-w-full inset-0 flex flex-col items-start left-full pl-4">
         <flux:button wire:click="$refresh" wire:island="metrics" icon="arrow-path" class="cursor-pointer"/>
