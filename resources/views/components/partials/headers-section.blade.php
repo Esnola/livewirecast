@@ -5,7 +5,9 @@
   <flux:navbar class="max-lg:hidden -mb-px">
     @isset($title)
       <flux:badge variant="subtle" icon="home"
-                  class="text-lg absolute -top-6 -left-4 px-4 py-1 rounded-xl  w-fit border border-gray-600/30 bg-gray-300/10!">{{$title}}</flux:badge>
+                  class="text-lg absolute -top-6 -left-4 px-4 py-1 rounded-xl  w-fit border border-gray-600/30 bg-gray-300/10! hover:bg-gray-300/40! dark:bg-gray-300/20! dark:border-gray-600/50 dark:text-gray-300">
+        {{$title}}
+      </flux:badge>
     @endisset
     <flux:navbar.item href="#">Dashboard</flux:navbar.item>
     <flux:navbar.item href="{{route('order.index')}}" badge="{{$this->counters()['orders']}}">Orders

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,6 +135,13 @@
 </flux:sidebar>
 
 <flux:main>
+  <div class="absolute top-4 right-6 z-99  max-w-fit" x-data>
+    <flux:switch x-model="$flux.dark" class="cursor-pointer" />
+    <span x-text="$flux.dark ? 'Light Mode' : 'Dark Mode'"
+            class="ml-2 text-sm text-gray-600 dark:text-gray-300"
+            @click="$flux.dark = !$flux.dark; $dispatch('input', $flux.dark)"
+    ></span>
+  </div>
   {{ $slot }}
 </flux:main>
 
