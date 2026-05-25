@@ -40,12 +40,18 @@
       Home
     </flux:sidebar.item>
 
-    <flux:sidebar.item icon="chart-bar" href="{{ route('analytics.index') }}" class="sidebar-item">
-      Analytics
-    </flux:sidebar.item>
 
     {{-- ================= EXPANDED ================= --}}
     <div class="space-y-1 in-data-flux-sidebar-collapsed-desktop:hidden">
+      {{-- ANALITICS --}}
+      <flux:sidebar.group expandable :expanded="request()->routeIs('analytics.*')" icon="chart-pie" heading="Analytics" class="sidebar-group">
+        <flux:sidebar.item icon="chart-bar" href="{{ route('analytics.index') }}" class="sidebar-item">
+          Analytics
+        </flux:sidebar.item>
+        <flux:sidebar.item icon="chart-bar-square" href="{{ route('analytics.sort') }}" class="sidebar-item">
+          Analytics Sort
+        </flux:sidebar.item>
+      </flux:sidebar.group>
 
       {{-- PRODUCTS --}}
       <flux:sidebar.group expandable :expanded="request()->routeIs('product.*')" icon="rectangle-group" heading="Products" class="sidebar-group">
