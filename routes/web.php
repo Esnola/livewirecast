@@ -12,10 +12,12 @@
   Route::livewire('/', 'pages::home')->name('home');
   Route::livewire('/analytics', 'pages::analytics.index')->name('analytics.index');
   Route::livewire('/analytics/sort', 'pages::analytics.index-sort')->name('analytics.sort');
+  
+  
   Route::livewire('/post/create', 'pages::post.create')->name('post.create');
   Route::livewire('/post/index', 'pages::post.index')->name('post.index');
-  
   Route::livewire('/post/listing', 'pages::post.listing')->name('post.listing');
+  Route::livewire('/post/edit/{post}', 'pages::post.edit')->name('post.edit');
   
   
   Route::livewire('/orders', 'pages::order.index')->name('order.index');

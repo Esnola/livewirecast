@@ -13,7 +13,7 @@
       <flux:menu.item
               icon="{{ $status->icon() }}"
               kbd="{{ $kbshorts[$index]}}"
-              class="cursor-pointer {{$index === $statusValue ? 'bg-zinc-200 pointer-events-none':'' }}">
+              class="cursor-pointer {{$index === $statusValue ? 'bg-zinc-200 dark:bg-zinc-500 pointer-events-none':'' }}">
         {{ $status->label() }}
       </flux:menu.item>
     @endforeach

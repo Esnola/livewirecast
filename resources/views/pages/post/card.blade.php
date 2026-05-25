@@ -40,6 +40,9 @@
     <div class="flex items-center justify-between mt-8">
       <x-status-badge :badge-class="$post->status->badgeClass()" :status-icon="$post->status->icon()"
                       :status-label="$post->status->label()"/>
+      <flux:button icon="pencil-square" href="{{route('post.edit', $post)}}" variant="outline" size="sm" class="px-3">
+        Edit
+      </flux:button>
       <x-status-filter title="Change Status" :statusValue="$post->status->value"/>
     </div>
   </div>

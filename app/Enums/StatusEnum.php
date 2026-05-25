@@ -20,9 +20,9 @@
     public function badgeClass(): string
     {
       return match ($this) {
-        self::Draft => 'bg-zinc-100! text-gray-500! border-zinc-200',
-        self::Published => 'bg-zinc-700! text-gray-200! border-zinc-200',
-        self::Archived => 'bg-zinc-400 text-gray-100 border-zinc-300',
+        self::Draft => 'text-zinc-500! border-black/10! dark:bg-zinc-700! dark:text-zinc-400! dark:border-zinc-400!',
+        self::Published => 'text-gray-500! border-black/10! dark:text-gray-200! dark:border-zinc-400!',
+        self::Archived => 'text-gray-500! border-black/10! dark:bg-zinc-700! dark:text-gray-400! dark:border-zinc-400! ',
       };
     }
     
@@ -30,7 +30,7 @@
     public function icon(): string
     {
       return match ($this) {
-        self::Draft => 'pencil',
+        self::Draft => 'bookmark-square',
         self::Published => 'check-circle',
         self::Archived => 'archive-box',
       };

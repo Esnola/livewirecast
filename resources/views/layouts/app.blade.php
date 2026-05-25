@@ -70,7 +70,7 @@
         </flux:sidebar.item>
         <flux:sidebar.item icon="command-line" href="{{ route('post.create') }}" :current="request()->routeIs('post.create')" class="sidebar-item">
           Create
-        </flux:sidebar.item>1
+        </flux:sidebar.item>
         <flux:sidebar.item icon="inbox" badge="12" href="#" class="sidebar-item">
           Inbox
         </flux:sidebar.item>
@@ -135,12 +135,11 @@
 </flux:sidebar>
 
 <flux:main>
-  <div class="absolute top-4 right-6 z-99  max-w-fit" x-data>
-    <flux:switch x-model="$flux.dark" class="cursor-pointer" />
-    <span x-text="$flux.dark ? 'Light Mode' : 'Dark Mode'"
-            class="ml-2 text-sm text-gray-600 dark:text-gray-300"
-            @click="$flux.dark = !$flux.dark; $dispatch('input', $flux.dark)"
-    ></span>
+  <div class="mb-2  flex items-center justify-end ">
+    <flux:radio.group x-data variant="segmented" x-model="$flux.appearance" class="max-w-fit">
+      <flux:radio value="light" icon="sun" class="data-checked:pointer-events-none cursor-pointer">Light</flux:radio>
+      <flux:radio value="dark" icon="moon" class="data-checked:pointer-events-none cursor-pointer">Dark</flux:radio>
+    </flux:radio.group>
   </div>
   {{ $slot }}
 </flux:main>
