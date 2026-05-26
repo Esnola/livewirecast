@@ -4,10 +4,11 @@
     [
       'linkgroup'   => 'analytics.*',
       'icongroup'   => 'chart-pie',
-      'headingroup' => 'Analitics',
+      'headingroup' => 'Analytics',
       'elements'    => [
-        ['title' => 'Analitics',  'icon' => 'chart-bar', 'link' => 'analytics.index',  'counter' => null],
-        ['title' => 'Create', 'icon' => 'chart-bar-square',  'link' => 'analytics.sort', 'counter' => null],
+        ['title' => 'Analytics',  'icon' => 'chart-bar', 'link' => 'analytics.index',  'counter' => null],
+        ['title' => 'Moving Cards', 'icon' => 'chart-bar-square',  'link' => 'analytics.sort', 'counter' => null],
+        ['title' => 'Drag & Drop', 'icon' => 'hand-raised',  'link' => 'analytics.cards', 'counter' => null],
       ],
     ],
     [
@@ -38,26 +39,25 @@
       ],
     ]
   ];
-
 ?>
 
 <flux:sidebar
         sticky
         collapsible
-        class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700"
+        class="bg-zinc-50 dark:bg-zinc-800 border-r border-zinc-200 dark:border-zinc-700 min-w-20"
 >
   <flux:sidebar.header class="relative flex items-center px-2 py-2 min-h-12 overflow-visible">
     <flux:sidebar.brand
             class="in-data-flux-sidebar-collapsed-desktop:hidden"
             href="#"
-            logo="https://fluxui.dev/img/demo/logo.png"
-            logo:dark="https://fluxui.dev/img/demo/dark-mode-logo.png"
+            logo="https://logo.svgcdn.com/logos/phpstorm.png"
+            logo:dark="https://logo.svgcdn.com/logos/phpstorm.png"
             name="Acme Inc."
     />
 
     <flux:sidebar.collapse
             tooltip="Toggle sidebar"
-            class="ml-auto shrink-0 opacity-100! in-data-flux-sidebar-collapsed-desktop:opacity-100! in-data-flux-sidebar-collapsed-desktop:-ml-4 in-data-flux-sidebar-collapsed-desktop:absolute in-data-flux-sidebar-collapsed-desktop:left-1/2 in-data-flux-sidebar-collapsed-desktop:-translate-x-1/2"
+            class="ml-auto shrink-0 opacity-100! in-data-flux-sidebar-collapsed-desktop:opacity-100! in-data-flux-sidebar-collapsed-desktop:absolute "
     />
   </flux:sidebar.header>
 
@@ -72,7 +72,8 @@
 
     <div class="space-y-1 in-data-flux-sidebar-collapsed-desktop:hidden">
       @foreach($sidebarGroups as $group)
-        <x-sidebar-group :linkgroup="$group['linkgroup']"
+        <x-sidebar-group
+                :linkgroup="$group['linkgroup']"
                 :icongroup="$group['icongroup']"
                 :headingroup="$group['headingroup']"
                 :elements="$group['elements']"

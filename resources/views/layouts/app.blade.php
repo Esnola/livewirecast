@@ -15,8 +15,9 @@
 
 <body class="min-h-screen bg-white dark:bg-zinc-800 antialiased">
 
+  <x-partials.sidebar/>
 
-<x-partials.sidebar />
+
 <flux:main>
   <div class="mb-2 flex items-center justify-end">
     <flux:radio.group x-data variant="segmented" x-model="$flux.appearance" class="max-w-fit">

@@ -146,8 +146,7 @@
                 :wire:sort:item="$name"
                 :heading="$this->metrics[$name]['heading']"
                 :number="$this->metrics[$name]['number']"
-                :change="$this->metrics[$name]['change']"
-        />
+                :change="$this->metrics[$name]['change']"/>
       @endforeach
       <div wire:sort:ignore class="absolute max-w-full inset-0 flex flex-col items-start left-full pl-4">
         <flux:button wire:click="$refresh" wire:island="metrics" icon="arrow-path" class="cursor-pointer"/>
