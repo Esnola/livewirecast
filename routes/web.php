@@ -1,5 +1,6 @@
 <?php
   
+  use App\Http\Controllers\StatisticsController;
   use Illuminate\Support\Facades\Route;
   
   /*
@@ -46,3 +47,6 @@
   Route::livewire('/customer/{customer}', 'pages::customer.show')->name('customer.show');
   Route::livewire('/customer/edit/{customer}', 'pages::customer.edit')->name('customer.edit');
   Route::livewire('/customer/delete/{customer}', 'pages::customer.delete')->name('customer.delete');
+  
+  
+  Route::get('/numbers/post', [StatisticsController::class, 'posts'])->name('numerposts');

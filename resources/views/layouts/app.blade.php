@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
+{{-- resources/views/layouts/app.blade.php --}}
+        <!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
 </head>
 
 <body class="min-h-screen bg-white dark:bg-zinc-800 antialiased">
+
 
 <flux:sidebar
         sticky
@@ -32,7 +34,7 @@
             tooltip="Toggle sidebar"
             class="ml-auto shrink-0 opacity-100! in-data-flux-sidebar-collapsed-desktop:opacity-100! in-data-flux-sidebar-collapsed-desktop:ml-0 in-data-flux-sidebar-collapsed-desktop:absolute in-data-flux-sidebar-collapsed-desktop:left-1/2 in-data-flux-sidebar-collapsed-desktop:-translate-x-1/2"
     />
-</flux:sidebar.header>
+  </flux:sidebar.header>
 
   <flux:sidebar.nav class="px-2 space-y-1">
     {{-- TOP --}}
@@ -44,7 +46,8 @@
     {{-- ================= EXPANDED ================= --}}
     <div class="space-y-1 in-data-flux-sidebar-collapsed-desktop:hidden">
       {{-- ANALITICS --}}
-      <flux:sidebar.group expandable :expanded="request()->routeIs('analytics.*')" icon="chart-pie" heading="Analytics" class="sidebar-group">
+      <flux:sidebar.group expandable :expanded="request()->routeIs('analytics.*')" icon="chart-pie" heading="Analytics"
+                          class="sidebar-group">
         <flux:sidebar.item icon="chart-bar" href="{{ route('analytics.index') }}" class="sidebar-item">
           Analytics
         </flux:sidebar.item>
@@ -54,9 +57,12 @@
       </flux:sidebar.group>
 
       {{-- PRODUCTS --}}
-      <flux:sidebar.group expandable :expanded="request()->routeIs('product.*')" icon="rectangle-group" heading="Products" class="sidebar-group">
-        <flux:sidebar.item icon="command-line" href="{{ route('product.index') }}" :current="request()->routeIs('product.index')" class="sidebar-item">
-          Product Listing
+      <flux:sidebar.group expandable :expanded="request()->routeIs('product.*')" icon="rectangle-group"
+                          heading="Products" class="sidebar-group">
+        <flux:sidebar.item badge="{{ $productsCount ?? 0 }}" icon="command-line"
+                           href="{{ route('product.index') }}"
+                           :current="request()->routeIs('product.index')" class="sidebar-item">
+          Product
         </flux:sidebar.item>
         <flux:sidebar.item icon="device-phone-mobile" href="#" class="sidebar-item">
           Android app
@@ -64,28 +70,28 @@
       </flux:sidebar.group>
 
       {{-- POSTS --}}
-      <flux:sidebar.group expandable :expanded="request()->routeIs('post.*')" icon="chat-bubble-bottom-center-text" heading="Posts" class="sidebar-group">
-        <flux:sidebar.item icon="document-text" href="{{ route('post.index') }}" :current="request()->routeIs('post.index')" class="sidebar-item">
-          Posts List
+      <flux:sidebar.group expandable :expanded="request()->routeIs('post.*')"
+                          icon="chat-bubble-bottom-center-text"
+                          heading="Posts" class="sidebar-group">
+        <flux:sidebar.item badge="{{ $totalPosts ?? 0 }}" icon="document-text" href="{{ route('post.index') }}"
+                           :current="request()->routeIs('post.index')" class="sidebar-item">
+          Posts
         </flux:sidebar.item>
-        <flux:sidebar.item icon="command-line" href="{{ route('post.create') }}" :current="request()->routeIs('post.create')" class="sidebar-item">
+        <flux:sidebar.item icon="command-line" href="{{ route('post.create') }}"
+                           :current="request()->routeIs('post.create')" class="sidebar-item">
           Create
-        </flux:sidebar.item>
-        <flux:sidebar.item icon="inbox" badge="12" href="#" class="sidebar-item">
-          Inbox
         </flux:sidebar.item>
       </flux:sidebar.group>
 
       {{-- SALES --}}
-      <flux:sidebar.group expandable :expanded="request()->routeIs('order.*')" icon="credit-card" heading="Sales" class="sidebar-group"  >
-        <flux:sidebar.item icon="banknotes" href="{{ route('order.index') }}" :current="request()->routeIs('order.index')" class="sidebar-item">
+      <flux:sidebar.group expandable :expanded="request()->routeIs('order.*')" icon="credit-card" heading="Sales"
+                          class="sidebar-group">
+        <flux:sidebar.item badge="{{ $ordersCount ?? 0 }}" icon="banknotes" href="{{ route('order.index') }}"
+                           :current="request()->routeIs('order.index')" class="sidebar-item">
           Sales
         </flux:sidebar.item>
         <flux:sidebar.item icon="device-phone-mobile" href="#" class="sidebar-item">
           Android app
-        </flux:sidebar.item>
-        <flux:sidebar.item icon="bookmark-square" href="#" class="sidebar-item">
-          Brand guidelines
         </flux:sidebar.item>
       </flux:sidebar.group>
     </div>
@@ -95,7 +101,8 @@
 
       {{-- PRODUCTS --}}
       <flux:dropdown>
-        <flux:sidebar.item icon="rectangle-group" href="#" :current="request()->routeIs('product.*')" tooltip="Products" class="sidebar-item"/>
+        <flux:sidebar.item icon="rectangle-group" href="#" :current="request()->routeIs('product.*')" tooltip="Products"
+                           class="sidebar-item"/>
         <flux:menu>
           <flux:menu.item icon="command-line" href="{{ route('product.index') }}">Product Listing</flux:menu.item>
           <flux:menu.item icon="device-phone-mobile" href="#">Android app</flux:menu.item>
@@ -104,7 +111,8 @@
 
       {{-- POSTS --}}
       <flux:dropdown>
-        <flux:sidebar.item icon="chat-bubble-bottom-center-text" href="#" :current="request()->routeIs('post.*')" tooltip="Posts" class="sidebar-item"/>
+        <flux:sidebar.item icon="chat-bubble-bottom-center-text" href="#" :current="request()->routeIs('post.*')"
+                           tooltip="Posts" class="sidebar-item"/>
         <flux:menu>
           <flux:menu.item icon="document-text" href="{{ route('post.index') }}">Posts List</flux:menu.item>
           <flux:menu.item icon="command-line" href="{{ route('post.create') }}">Create</flux:menu.item>
@@ -114,7 +122,8 @@
 
       {{-- SALES --}}
       <flux:dropdown>
-        <flux:sidebar.item icon="credit-card" href="#" :current="request()->routeIs('order.*')" tooltip="Sales" class="sidebar-item"/>
+        <flux:sidebar.item icon="credit-card" href="#" :current="request()->routeIs('order.*')" tooltip="Sales"
+                           class="sidebar-item"/>
         <flux:menu>
           <flux:menu.item icon="banknotes" href="{{ route('order.index') }}">Sales</flux:menu.item>
           <flux:menu.item icon="device-phone-mobile" href="#">Android app</flux:menu.item>
@@ -135,7 +144,7 @@
 </flux:sidebar>
 
 <flux:main>
-  <div class="mb-2  flex items-center justify-end ">
+  <div class="mb-2 flex items-center justify-end">
     <flux:radio.group x-data variant="segmented" x-model="$flux.appearance" class="max-w-fit">
       <flux:radio value="light" icon="sun" class="data-checked:pointer-events-none cursor-pointer">Light</flux:radio>
       <flux:radio value="dark" icon="moon" class="data-checked:pointer-events-none cursor-pointer">Dark</flux:radio>
