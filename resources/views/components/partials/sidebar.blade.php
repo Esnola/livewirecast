@@ -9,6 +9,7 @@
         ['title' => 'Analytics',  'icon' => 'chart-bar', 'link' => 'analytics.index',  'counter' => null],
         ['title' => 'Moving Cards', 'icon' => 'chart-bar-square',  'link' => 'analytics.sort', 'counter' => null],
         ['title' => 'Drag & Drop', 'icon' => 'hand-raised',  'link' => 'analytics.cards', 'counter' => null],
+        ['title' => 'Drag & Drop Copy', 'icon' => 'lifebuoy',  'link' => 'analytics.cards-copy', 'counter' => null],
       ],
     ],
     [

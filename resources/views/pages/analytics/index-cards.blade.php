@@ -11,10 +11,6 @@
   new #[Title('Drag & Drop')]
   class extends Component {
 
-    public function sleep()
-    {
-      sleep(2);
-  }
     #[Computed]
     public array $images = [
       'https://logo.svgcdn.com/logos/datagrip.png',

@@ -14,6 +14,7 @@
   Route::livewire('/analytics', 'pages::analytics.index')->name('analytics.index');
   Route::livewire('/analytics/sort', 'pages::analytics.index-sort')->name('analytics.sort');
   Route::livewire('/analytics/cards', 'pages::analytics.index-cards')->name('analytics.cards');
+  Route::livewire('/analytics/cards-copy', 'pages::analytics.index-cards-copy')->name('analytics.cards-copy');
   
   
   Route::livewire('/post/create', 'pages::post.create')->name('post.create');
