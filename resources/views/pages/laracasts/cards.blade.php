@@ -61,7 +61,7 @@
     #[Renderless, Async]
     public function handleSort($item, $position)
     {
-      // 1. Remove the item from its current home...
+      // 1. Remove the item from its current place...
       $this->sortedMetrics = array_diff($this->sortedMetrics, [$item]);
       // 2. Re-index to close the gap...
       $this->sortedMetrics = array_values($this->sortedMetrics);
@@ -84,7 +84,6 @@
         </flux:subheading>
       </div>
     </div>
-
     @island(name:'metrics', lazy:true, always:true)
       @placeholder
     <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-12" wire:key="placeholder">
@@ -105,5 +104,6 @@
       @endforeach
     </div>
     @endisland
+
   </flux:main>
 </div>

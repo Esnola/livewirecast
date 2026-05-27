@@ -7,9 +7,17 @@
       'headingroup' => 'Analytics',
       'elements'    => [
         ['title' => 'Analytics',  'icon' => 'chart-bar', 'link' => 'analytics.index',  'counter' => null],
-        ['title' => 'Moving Cards', 'icon' => 'chart-bar-square',  'link' => 'analytics.sort', 'counter' => null],
-        ['title' => 'Drag & Drop', 'icon' => 'hand-raised',  'link' => 'analytics.cards', 'counter' => null],
-        ['title' => 'Drag & Drop Copy', 'icon' => 'lifebuoy',  'link' => 'analytics.cards-copy', 'counter' => null],
+      ],
+    ],[
+      'linkgroup'   => 'laracasts.*',
+      'icongroup'   => 'academic-cap',
+      'headingroup' => 'Laracasts',
+      'elements'    => [
+        ['title' => 'Chapters',  'icon' => 'cube-transparent', 'link' => 'laracasts.index',  'counter' => null],
+        ['title' => 'Moving Cards-19 ', 'icon' => 'building-office',  'link' => 'laracasts.sort', 'counter' => null],
+        ['title' => 'Drag & Drop', 'icon' => 'hand-raised',  'link' => 'laracasts.cards', 'counter' => null],
+        ['title' => 'Drag & Drop Copy', 'icon' => 'document-arrow-up',  'link' => 'laracasts.cards-copy', 'counter' => null],
+        ['title' => 'Interceptors', 'icon' => 'bolt',  'link' => 'laracasts.interceptors', 'counter' => null],
       ],
     ],
     [

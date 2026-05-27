@@ -3,23 +3,21 @@
   use App\Http\Controllers\StatisticsController;
   use Illuminate\Support\Facades\Route;
   
-  /*
-  Route::get('/', function () {
-      return view('layouts.app',
-        ['title' => 'Home',
-          'slot' => '<flux:avatar src="https://unavatar.io/x/calebporzio" />']);
-  });*/
-  
   Route::livewire('/', 'pages::home')->name('home');
   Route::livewire('/analytics', 'pages::analytics.index')->name('analytics.index');
-  Route::livewire('/analytics/sort', 'pages::analytics.index-sort')->name('analytics.sort');
-  Route::livewire('/analytics/cards', 'pages::analytics.index-cards')->name('analytics.cards');
-  Route::livewire('/analytics/cards-copy', 'pages::analytics.index-cards-copy')->name('analytics.cards-copy');
+  
+  Route::livewire('/laracasts', 'pages::laracasts.index')->name('laracasts.index');
+  Route::livewire('/laracasts/interceptors', 'pages::laracasts.interceptors')->name('laracasts.interceptors');
+  Route::livewire('/laracasts/sort', 'pages::laracasts.sort')->name('laracasts.sort');
+  Route::livewire('/laracasts/cards', 'pages::laracasts.cards')->name('laracasts.cards');
+  Route::livewire('/laracasts/cards-copy', 'pages::laracasts.cards-copy')->name('laracasts.cards-copy');
+  
   
   
   Route::livewire('/post/create', 'pages::post.create')->name('post.create');
   Route::livewire('/post/index', 'pages::post.index')->name('post.index');
   Route::livewire('/post/listing', 'pages::post.listing')->name('post.listing');
+  Route::livewire('/post/edit/{post}', 'pages::post.edit')->name('post.edit');
   Route::livewire('/post/edit/{post}', 'pages::post.edit')->name('post.edit');
   
   

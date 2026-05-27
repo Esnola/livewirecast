@@ -13,17 +13,14 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
-/* 1. Seleccionado (chosen solo, sin ghost) */
+
 .sortable-chosen{
-    @apply bg-gray-100/80 ;
+    @apply bg-gray-100/30;
 }
 
-/* 2. Arrastrando (chosen + ghost juntos) */
 .sortable-ghost {
     @apply bg-green-500/50! opacity-30! ring-2! ring-yellow-400!;
 }
-
-
 
 .sidebar-item {
     @apply rounded-xl px-3 py-2 text-sm transition;
