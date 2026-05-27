@@ -15,14 +15,16 @@
 }
 /* 1. Seleccionado (chosen solo, sin ghost) */
 .sortable-chosen{
-    @apply bg-yellow-100 ring-2! ring-yellow-400!;
+    @apply bg-gray-100/80 ;
 }
 
 /* 2. Arrastrando (chosen + ghost juntos) */
-.sortable-chosen.sortable-ghost {
-    @apply bg-gray-500/50! opacity-30! ;
+.sortable-ghost {
+    @apply bg-green-500/50! opacity-30! ring-2! ring-yellow-400!;
 }
-/* ITEM estilo Filament */
+
+
+
 .sidebar-item {
     @apply rounded-xl px-3 py-2 text-sm transition;
 }
