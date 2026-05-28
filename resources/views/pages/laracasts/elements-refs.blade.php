@@ -16,7 +16,7 @@
     public function save()
     {
       //sleep(1);
-      Product::create($this->validate([
+      Product::update($this->validate([
         'name' => 'required|min:3',
         'description' => 'required',
         'status' => 'required'

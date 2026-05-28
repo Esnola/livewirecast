@@ -12,6 +12,7 @@
   Route::livewire('/laracasts/cards', 'pages::laracasts.cards')->name('laracasts.cards');
   Route::livewire('/laracasts/elements-refs', 'pages::laracasts.elements-refs')->name('laracasts.elements-refs');
   Route::livewire('/laracasts/tracking', 'pages::laracasts.tracking-dirty-state')->name('laracasts.tracking');
+  Route::livewire('/laracasts/json', 'pages::laracasts.json')->name('laracasts.json');
   Route::livewire('/laracasts/interceptors', 'pages::laracasts.interceptors')->name('laracasts.interceptors');
   Route::livewire('/laracasts/cards-version', 'pages::laracasts.cards-version')->name('laracasts.cards-version');
   

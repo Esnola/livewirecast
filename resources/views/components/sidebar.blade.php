@@ -19,6 +19,7 @@
         ['title' => 'Drag & Drop Copy', 'icon' => 'document-arrow-up', 'link' => 'laracasts.cards-version', 'counter' => null],
         ['title' => 'Elements Refs', 'icon' => 'bookmark-square', 'link' => 'laracasts.elements-refs', 'counter' => null],
         ['title' => 'Tracking Dirty', 'icon' => 'bookmark-square', 'link' => 'laracasts.tracking', 'counter' => null],
+        ['title' => 'Json', 'icon' => 'briefcase', 'link' => 'laracasts.json', 'counter' => null],
         ['title' => 'Interceptors', 'icon' => 'bolt', 'link' => 'laracasts.interceptors', 'counter' => null],
       ],
     ],
