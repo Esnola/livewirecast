@@ -6,12 +6,12 @@
   Route::livewire('/', 'pages::home')->name('home');
   Route::livewire('/analytics', 'pages::analytics.index')->name('analytics.index');
   
+  
   Route::livewire('/laracasts', 'pages::laracasts.index')->name('laracasts.index');
   Route::livewire('/laracasts/interceptors', 'pages::laracasts.interceptors')->name('laracasts.interceptors');
   Route::livewire('/laracasts/sort', 'pages::laracasts.sort')->name('laracasts.sort');
   Route::livewire('/laracasts/cards', 'pages::laracasts.cards')->name('laracasts.cards');
-  Route::livewire('/laracasts/cards-copy', 'pages::laracasts.cards-copy')->name('laracasts.cards-copy');
-  
+  Route::livewire('/laracasts/cards-version', 'pages::laracasts.cards-version')->name('laracasts.cards-version');
   
   
   Route::livewire('/post/create', 'pages::post.create')->name('post.create');
@@ -30,6 +30,7 @@
   
   Route::livewire('/products/', 'pages::product.index')->name('product.index');
   Route::livewire('/product/create', 'pages::product.create')->name('product.create');
+  Route::livewire('/product/img_upload', 'pages::product.img_upload')->name('product.img_upload');
   Route::livewire('/product/show/{product}', 'pages::product.show')->name('product.show');
   Route::livewire('/product/edit/{product}', 'pages::product.edit')->name('product.edit');
   Route::livewire('/product/delete/{product}', 'pages::product.delete')->name('product.delete');

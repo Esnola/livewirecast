@@ -16,7 +16,7 @@
         ['title' => 'Chapters',  'icon' => 'cube-transparent', 'link' => 'laracasts.index',  'counter' => null],
         ['title' => 'Moving Cards-19 ', 'icon' => 'building-office',  'link' => 'laracasts.sort', 'counter' => null],
         ['title' => 'Drag & Drop', 'icon' => 'hand-raised',  'link' => 'laracasts.cards', 'counter' => null],
-        ['title' => 'Drag & Drop Copy', 'icon' => 'document-arrow-up',  'link' => 'laracasts.cards-copy', 'counter' => null],
+        ['title' => 'Drag & Drop Copy', 'icon' => 'document-arrow-up',  'link' => 'laracasts.cards-version', 'counter' => null],
         ['title' => 'Interceptors', 'icon' => 'bolt',  'link' => 'laracasts.interceptors', 'counter' => null],
       ],
     ],
