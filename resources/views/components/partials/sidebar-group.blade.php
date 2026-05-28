@@ -11,7 +11,7 @@
             href="{{ $element['link'] ? route($element['link']) : '#' }}"
             icon="{{ $element['icon'] }}"
             :current="request()->routeIs($element['link'])"
-            class="sidebar-item dark:bg-transparent! dark:text-white! dark:hover:bg-zinc-800! data-current:bg-zinc-700! ">
+            class="sidebar-item dark:bg-transparent! dark:text-white!  data-current:bg-zinc-300! dark:data-current:bg-zinc-600! dark:hover:bg-zinc-600!">
       {{ $element['title'] }}
     </flux:sidebar.item>
   @endforeach

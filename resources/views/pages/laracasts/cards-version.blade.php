@@ -9,8 +9,7 @@
   use Livewire\Component;
 
   new #[Title('Drag & Drop')]
-  class extends Component
-  {
+  class extends Component {
 
     #[Computed]
     public array $logos = ['blender', 'blueprint', 'bootstrap', 'brave', 'browserstack',
@@ -18,7 +17,7 @@
       'deno', 'firefox', 'goland', 'google-home', 'intellij-idea', 'jetbrains', 'jetbrains',
       'microsoft-edge', 'opera', 'phpstorm', 'pycharm', 'rubymine', 'rubymine', 'safari',
       'visual-studio', 'visual-studio-code', 'webstorm',
-      ];
+    ];
 
     #[Session]
     public array $sortedLogos;
@@ -49,7 +48,7 @@
         <flux:heading size="xl">Drag & Drop</flux:heading>
         <flux:subheading>
           All images credits for
-          <flux:link href="https://brandpnglogo.com/">
+          <flux:link href="https://brandpnglogo.com/" target="_blank">
             BrandPNGLogo
           </flux:link>
         </flux:subheading>
